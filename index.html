@@ -331,6 +331,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index">
+                    <span itemprop="name">php</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -360,7 +382,14 @@
       
         
           
-            
+            <h3 id="问题-amp-场景"><a href="#问题-amp-场景" class="headerlink" title="问题&amp;场景"></a>问题&amp;场景</h3><p>在yii2的command，利用多进程消费数据库中的数据时，总是出现gone away。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在mysql的官方文档中其实有专门的章节说明这个问题，原因也是各种各样，<a href="https://dev.mysql.com/doc/refman/5.7/en/gone-away.html" target="_blank" rel="external">详见</a>；<br>其中有一条刚好符合我的场景，大意就是，当fork的子进程都共用相同的mysql连接的时候，会出现该错误，每个子进程单独一个mysql连接即可解决。</p>
+<blockquote>
+<p>You can also encounter this error with applications that fork child processes, all of which try to use the same connection to the MySQL server. This can be avoided by using a separate connection for each child process.</p>
+</blockquote>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>在子进程执行之前，先把mysql的连接close即可。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">for ($i = 0; $i &lt; $processNum; $i++) &#123;</div><div class="line">    $pid = pcntl_fork();</div><div class="line">    if(!$pid)&#123; // 子进程处理</div><div class="line">        Yii::$app-&gt;db-&gt;close();// solve 子进程 MySQL server has gone away</div><div class="line">        $this-&gt;_work($tasks[$i]);</div><div class="line">        exit(0);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Yii::$app-&gt;db-&gt;close();// solve 主进程 MySQL server has gone away</div><div class="line"></div><div class="line">$status = null;</div><div class="line">while(pcntl_waitpid(0, $status, WUNTRACED) != -1)&#123;</div><div class="line">    pcntl_wexitstatus($status);</div><div class="line">    CommonLog::saveLog(&apos;子进程结束&apos;.&quot;\n&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
           
         
       
@@ -448,7 +477,25 @@
           
 
           
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>
