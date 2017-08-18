@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/08/18/yii2-php%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%87%BA%E7%8E%B0-MySQL-server-has-gone-away/</loc>
+    
+    <lastmod>2017-08-18T04:31:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2017-08-17T12:36:22.000Z</lastmod>
@@ -19,20 +26,6 @@
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2017-08-15T13:32:54.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/08/15/world/</loc>
-    
-    <lastmod>2017-08-15T12:36:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/08/15/hello-world/</loc>
-    
-    <lastmod>2017-08-15T12:20:37.000Z</lastmod>
     
   </url>
   
