@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-06T02:34:05.000Z</updated>
+  <updated>2017-09-06T02:52:11.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/09/05/c++%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2017/09/05/c++内存泄漏整理/</id>
     <published>2017-09-05T13:53:37.000Z</published>
-    <updated>2017-09-06T02:34:05.000Z</updated>
+    <updated>2017-09-06T02:52:11.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>内容转载自：</p>
@@ -30,15 +30,15 @@
 <p>对于内存泄漏，维基百科的定义是：在计算机科学中，内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。</p>
 <h3 id="常见内存泄漏的情况"><a href="#常见内存泄漏的情况" class="headerlink" title="常见内存泄漏的情况"></a>常见内存泄漏的情况</h3><ol>
 <li><p>类中动态分配的成员变量，记得要在析构函数中释放。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class CApple&#123;</div><div class="line">public:</div><div class="line">	CApple()&#123;</div><div class="line">		m_ptrData = new char[128];</div><div class="line">	&#125;</div><div class="line">	~CApple()&#123;</div><div class="line">		if(NULL != m_ptrData)&#123;</div><div class="line">			delete m_ptrData;</div><div class="line">			m_ptrData = NULL;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CApple</span>&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	CApple()&#123;</div><div class="line">		m_ptrData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">128</span>];</div><div class="line">	&#125;</div><div class="line">	~CApple()&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="literal">NULL</span> != m_ptrData)&#123;</div><div class="line">			<span class="keyword">delete</span> m_ptrData;</div><div class="line">			m_ptrData = <span class="literal">NULL</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>指针容器<br>vector中存放了要释放的内存的指针的话，一定记着。</p>
 </li>
 <li><p>指针赋值</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void CMainModule::BulidList()&#123;</div><div class="line">	m_ptrList = new CList;//正确的做法为判断指针变量是否为NULL，然后选择复用或者delete</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> CMainModule::BulidList()&#123;</div><div class="line">	m_ptrList = <span class="keyword">new</span> CList;<span class="comment">//正确的做法为判断指针变量是否为NULL，然后选择复用或者delete</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>异常分支或者提前return或continue</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">       void *ptrData = new char[128];</div><div class="line"></div><div class="line">       /// do something …</div><div class="line">       </div><div class="line">       if (NULL != ptrData) &#123;</div><div class="line">           delete ptrData;</div><div class="line">           ptrData = NULL;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   catch (CException &amp;e) &#123;</div><div class="line">       // log</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">       <span class="keyword">void</span> *ptrData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">128</span>];</div><div class="line"></div><div class="line">       <span class="comment">/// do something …</span></div><div class="line">       </div><div class="line">       <span class="keyword">if</span> (<span class="literal">NULL</span> != ptrData) &#123;</div><div class="line">           <span class="keyword">delete</span> ptrData;</div><div class="line">           ptrData = <span class="literal">NULL</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">catch</span> (CException &amp;e) &#123;</div><div class="line">       <span class="comment">// log</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>动态分配的对象数组</p>
 <p> 动态分配的对象数组，记得使用delete[]来进行删除。基于两个考虑：</p>
@@ -49,16 +49,29 @@
 <li>线程安全退出</li>
 </ol>
 <h3 id="如何避免内存泄漏"><a href="#如何避免内存泄漏" class="headerlink" title="如何避免内存泄漏"></a>如何避免内存泄漏</h3><ol>
-<li>基本方法：</li>
+<li><p>基本方法：</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;</div><div class="line">        Object obj = <span class="keyword">new</span> Object;</div><div class="line">        ...</div><div class="line">        </div><div class="line">        <span class="keyword">if</span>(condition)&#123;</div><div class="line">            <span class="keyword">delete</span> obj;</div><div class="line">            ojb = <span class="literal">NULL</span>;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ...</div><div class="line">        </div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            dosomething();</div><div class="line">        &#125;<span class="keyword">catch</span> (...)&#123;</div><div class="line">            <span class="keyword">delete</span> ojb;</div><div class="line">            obj = <span class="literal">NULL</span>;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        ...</div><div class="line">        </div><div class="line">        <span class="keyword">delete</span> obj;</div><div class="line">        obj = <span class="literal">NULL</span>;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    ```	</div><div class="line"></div><div class="line"><span class="number">2.</span> RAII（Resource Acquisition Is Initialization）即“资源获取就是初始化”技术，它是由C++之父Bjarne Stroustrup提出的一种资源管理方法，它的核心思想是将资源抽象为类，用局部对象来表示资源（内存是资源的一种），把管理资源的任务转化为管理局部对象的任务。RAII典型的实践有<span class="built_in">shared_ptr</span>、<span class="built_in">auto_ptr</span>等（在boost库中实现，C++<span class="number">11</span>开始纳入到标准库中）。</div><div class="line"></div><div class="line">	```cpp</div><div class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Object</span>&#123;</span>...&#125;;</div><div class="line">    	<span class="class"><span class="keyword">class</span> <span class="title">SimpleRAII</span>&#123;</span> <span class="comment">// 这只是一个简单的例子演示，实际生产中，需考虑的问题还有很多</span></div><div class="line">    	<span class="keyword">public</span>:</div><div class="line">        	SimpleRAII(Object* obj):_obj(obj)&#123;&#125;<span class="comment">// 获取资源</span></div><div class="line">        	~SimpleRAII()&#123; <span class="keyword">delete</span> _obj;_obj=<span class="literal">NULL</span>;&#125;<span class="comment">//释放资源</span></div><div class="line">        	<span class="function">Object* <span class="title">get</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> _obj;&#125;<span class="comment">//访问资源</span></div><div class="line">    	<span class="keyword">private</span>:</div><div class="line">        	Object* _obj;</div><div class="line">    	&#125;;</div></pre></td></tr></table></figure>
+</li>
 </ol>
-<p><img src="http://i.imgur.com/iMWc5tU.png" alt=""></p>
-<ol>
-<li>RAII（Resource Acquisition Is Initialization）即“资源获取就是初始化”技术，它是由C++之父Bjarne Stroustrup提出的一种资源管理方法，它的核心思想是将资源抽象为类，用局部对象来表示资源（内存是资源的一种），把管理资源的任务转化为管理局部对象的任务。RAII典型的实践有shared_ptr、auto_ptr等（在boost库中实现，C++11开始纳入到标准库中）。</li>
-</ol>
-<p><img src="http://i.imgur.com/87xSq9F.png" alt=""></p>
 <p>优化1中的代码后：</p>
-<p><img src="http://i.imgur.com/SYgVsqT.png" alt=""></p>
-]]></content>
+<pre><code>```cpp
+void func(){
+        Object obj = new Object;
+        SimpleRAII raii(obj);// 使用局部对象管理指针
+           ...
+        if(condition) return;
+        ...
+        // 这里即使没有try catch 也不会出现问题 raii的析构仍然会被正确调用
+        try{
+                dosomething();
+           }
+        catch (...){
+            return;
+        }
+        ...
+        return;
+    }
+</code></pre>]]></content>
     
     <summary type="html">
     
@@ -84,7 +97,7 @@
     <link href="http://yoursite.com/2017/08/09/yii2-php%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%87%BA%E7%8E%B0-MySQL-server-has-gone-away/"/>
     <id>http://yoursite.com/2017/08/09/yii2-php多进程-出现-MySQL-server-has-gone-away/</id>
     <published>2017-08-09T06:47:40.000Z</published>
-    <updated>2017-09-06T02:33:50.000Z</updated>
+    <updated>2017-09-06T02:37:37.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="问题-amp-场景"><a href="#问题-amp-场景" class="headerlink" title="问题&amp;场景"></a>问题&amp;场景</h3><p>在yii2的command，利用多进程消费数据库中的数据时，总是出现gone away。</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在mysql的官方文档中其实有专门的章节说明这个问题，原因也是各种各样，<a href="https://dev.mysql.com/doc/refman/5.7/en/gone-away.html" target="_blank" rel="external">详见</a>；<br>其中有一条刚好符合我的场景，大意就是，当fork的子进程都共用相同的mysql连接的时候，会出现该错误，每个子进程单独一个mysql连接即可解决。</p>
@@ -92,7 +105,7 @@
 <p>You can also encounter this error with applications that fork child processes, all of which try to use the same connection to the MySQL server. This can be avoided by using a separate connection for each child process.</p>
 </blockquote>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>在子进程执行之前，先把mysql的连接close即可。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">for ($i = 0; $i &lt; $processNum; $i++) &#123;</div><div class="line">    $pid = pcntl_fork();</div><div class="line">    if(!$pid)&#123; // 子进程处理</div><div class="line">        Yii::$app-&gt;db-&gt;close();// solve 子进程 MySQL server has gone away</div><div class="line">        $this-&gt;_work($tasks[$i]);</div><div class="line">        exit(0);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Yii::$app-&gt;db-&gt;close();// solve 主进程 MySQL server has gone away</div><div class="line"></div><div class="line">$status = null;</div><div class="line">while(pcntl_waitpid(0, $status, WUNTRACED) != -1)&#123;</div><div class="line">    pcntl_wexitstatus($status);</div><div class="line">    CommonLog::saveLog(&apos;子进程结束&apos;.&quot;\n&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $processNum; $i++) &#123;</div><div class="line">    $pid = pcntl_fork();</div><div class="line">    <span class="keyword">if</span>(!$pid)&#123; <span class="comment">// 子进程处理</span></div><div class="line">        Yii::$app-&gt;db-&gt;close();<span class="comment">// solve 子进程 MySQL server has gone away</span></div><div class="line">        <span class="keyword">$this</span>-&gt;_work($tasks[$i]);</div><div class="line">        <span class="keyword">exit</span>(<span class="number">0</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">Yii::$app-&gt;db-&gt;close();<span class="comment">// solve 主进程 MySQL server has gone away</span></div><div class="line"></div><div class="line">$status = <span class="keyword">null</span>;</div><div class="line"><span class="keyword">while</span>(pcntl_waitpid(<span class="number">0</span>, $status, WUNTRACED) != <span class="number">-1</span>)&#123;</div><div class="line">    pcntl_wexitstatus($status);</div><div class="line">    CommonLog::saveLog(<span class="string">'子进程结束'</span>.<span class="string">"\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
