@@ -15,14 +15,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[标签]]></title>
-    <url>%2Ftags%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[关于我]]></title>
     <url>%2Fabout%2Findex.html</url>
     <content type="text"><![CDATA[大学&emsp;&emsp;2016年本科毕业，大学期间浑浑噩噩的上课，但认认真真的学编程，挂过科，不过最后还是幸运的拿到了毕业证和学位证。期间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书。这基本上就是我大学的全部了。 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、golang、c++，略懂前端。 工作&emsp;&emsp;2015/09 – 2016/04 实习于百度百科&emsp;&emsp;2016/06 – 2017/02 就职于小米网&emsp;&emsp;2017/02 – 至今 就职于高德地图，打杂。。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[标签]]></title>
+    <url>%2Ftags%2Findex.html</url>
+    <content type="text"></content>
   </entry>
   <entry>
     <title><![CDATA[分类]]></title>
