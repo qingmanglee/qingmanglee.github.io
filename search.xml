@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[c++内存泄漏整理]]></title>
-    <url>%2F2017%2F09%2F05%2Fc%E5%8A%A0%E5%8A%A0%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%95%B4%E7%90%86%2F</url>
+    <url>%2F2017%2F09%2F05%2Fc%2B%2B%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%95%B4%E7%90%86%2F</url>
     <content type="text"><![CDATA[内容整理来自： 内存泄漏漫谈 (http://tmq.qq.com/2016/10/memory-leak-rambling/) C++内存泄漏检查心得 (http://blog.csdn.net/wenhm/article/details/4314863) 对于内存泄漏，维基百科的定义是：在计算机科学中，内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。 常见内存泄漏的情况 类中动态分配的成员变量，记得要在析构函数中释放。 123456789101112class CApple&#123;public: CApple()&#123; m_ptrData = new char[128]; &#125; ~CApple()&#123; if(NULL != m_ptrData)&#123; delete m_ptrData; m_ptrData = NULL; &#125; &#125;&#125; 指针容器vector中存放了要释放的内存的指针的话，一定记着。 指针赋值 123void CMainModule::BulidList()&#123; m_ptrList = new CList;//正确的做法为判断指针变量是否为NULL，然后选择复用或者delete&#125; 异常分支或者提前return或continue 12345678910111213try &#123; void *ptrData = new char[128]; /// do something … if (NULL != ptrData) &#123; delete ptrData; ptrData = NULL; &#125; &#125; catch (CException &amp;e) &#123; // log &#125; 动态分配的对象数组 动态分配的对象数组，记得使用delete[]来进行删除。基于两个考虑： (1)可以释放整个数组的空间； (2)调用数组中每个对象的析构函数。 虚析构函数 当派生类的对象，被赋值给基类对象时，当delete这个基类对象时，会调用派生类的析构函数。 线程安全退出 如何避免内存泄漏 基本方法： RAII（Resource Acquisition Is Initialization）即“资源获取就是初始化”技术，它是由C++之父Bjarne Stroustrup提出的一种资源管理方法，它的核心思想是将资源抽象为类，用局部对象来表示资源（内存是资源的一种），把管理资源的任务转化为管理局部对象的任务。RAII典型的实践有shared_ptr、auto_ptr等（在boost库中实现，C++11开始纳入到标准库中）。 优化1中的代码后：]]></content>
       <categories>
         <category>c++</category>
@@ -27,14 +27,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[分类]]></title>
-    <url>%2Fcategories%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[关于我]]></title>
     <url>%2Fabout%2Findex.html</url>
     <content type="text"><![CDATA[大学&emsp;&emsp;2016年本科毕业，大学期间浑浑噩噩的上课，但认认真真的学编程，挂过科，不过最后还是幸运的拿到了毕业证和学位证。期间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书。这基本上就是我大学的全部了。 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、golang、c++，略懂前端。 工作&emsp;&emsp;2015/09 – 2016/04 实习于百度百科&emsp;&emsp;2016/06 – 2017/02 就职于小米网&emsp;&emsp;2017/02 – 至今 就职于高德地图，打杂。。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[分类]]></title>
+    <url>%2Fcategories%2Findex.html</url>
+    <content type="text"></content>
   </entry>
   <entry>
     <title><![CDATA[标签]]></title>
