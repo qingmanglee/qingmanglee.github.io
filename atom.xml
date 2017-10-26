@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-09-06T03:19:57.000Z</updated>
+  <updated>2017-09-06T02:37:37.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,70 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>c++内存泄漏整理</title>
-    <link href="http://yoursite.com/2017/09/05/c++%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E6%95%B4%E7%90%86/"/>
-    <id>http://yoursite.com/2017/09/05/c++内存泄漏整理/</id>
-    <published>2017-09-05T13:53:37.000Z</published>
-    <updated>2017-09-06T03:19:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>内容转载自：</p>
-<p><a href="http://tmq.qq.com/2016/10/memory-leak-rambling/" target="_blank" rel="external">内存泄漏漫谈 (http://tmq.qq.com/2016/10/memory-leak-rambling/)</a></p>
-<p><a href="http://blog.csdn.net/wenhm/article/details/4314863" target="_blank" rel="external">C++内存泄漏检查心得 (http://blog.csdn.net/wenhm/article/details/4314863)</a></p>
-</blockquote>
-<p>对于内存泄漏，维基百科的定义是：在计算机科学中，内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。</p>
-<h3 id="常见内存泄漏的情况"><a href="#常见内存泄漏的情况" class="headerlink" title="常见内存泄漏的情况"></a>常见内存泄漏的情况</h3><ol>
-<li><p>类中动态分配的成员变量，记得要在析构函数中释放。</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CApple</span>&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	CApple()&#123;</div><div class="line">		m_ptrData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">128</span>];</div><div class="line">	&#125;</div><div class="line">	~CApple()&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="literal">NULL</span> != m_ptrData)&#123;</div><div class="line">			<span class="keyword">delete</span> m_ptrData;</div><div class="line">			m_ptrData = <span class="literal">NULL</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>指针容器<br>vector中存放了要释放的内存的指针的话，一定记着。</p>
-</li>
-<li><p>指针赋值</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> CMainModule::BulidList()&#123;</div><div class="line">	m_ptrList = <span class="keyword">new</span> CList;<span class="comment">//正确的做法为判断指针变量是否为NULL，然后选择复用或者delete</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>异常分支或者提前return或continue</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">	<span class="keyword">void</span> *ptrData = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">128</span>];</div><div class="line">	<span class="comment">//do something …</span></div><div class="line">	<span class="keyword">if</span> (<span class="literal">NULL</span> != ptrData) &#123;</div><div class="line">		<span class="keyword">delete</span> ptrData;</div><div class="line">		ptrData = <span class="literal">NULL</span>;</div><div class="line">	&#125;</div><div class="line">&#125;<span class="keyword">catch</span> (CException &amp;e) &#123;</div><div class="line"><span class="comment">// log</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>动态分配的对象数组</p>
-<p> 动态分配的对象数组，记得使用delete[]来进行删除。基于两个考虑：</p>
-<p> (1)可以释放整个数组的空间；</p>
-<p> (2)调用数组中每个对象的析构函数。</p>
-</li>
-<li>虚析构函数<br> 当派生类的对象，被赋值给基类对象时，当delete这个基类对象时，会调用派生类的析构函数。</li>
-<li>线程安全退出</li>
-</ol>
-<h3 id="如何避免内存泄漏"><a href="#如何避免内存泄漏" class="headerlink" title="如何避免内存泄漏"></a>如何避免内存泄漏</h3><ol>
-<li><p>基本方法：</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;</div><div class="line">       	Object obj = <span class="keyword">new</span> Object;</div><div class="line">       	...</div><div class="line">       </div><div class="line">       	<span class="keyword">if</span>(condition)&#123;</div><div class="line">           	<span class="keyword">delete</span> obj;</div><div class="line">           	obj = <span class="literal">NULL</span>;</div><div class="line">           	<span class="keyword">return</span>;</div><div class="line">       	&#125;</div><div class="line">       </div><div class="line">       	...</div><div class="line">       </div><div class="line">       	<span class="keyword">try</span>&#123;</div><div class="line">           		dosomething();</div><div class="line">       	&#125;<span class="keyword">catch</span> (...)&#123;</div><div class="line">           		<span class="keyword">delete</span> ojb;</div><div class="line">           		obj = <span class="literal">NULL</span>;</div><div class="line">           		<span class="keyword">return</span>;</div><div class="line">       	&#125;</div><div class="line">       </div><div class="line">       	...</div><div class="line">       </div><div class="line">       	<span class="keyword">delete</span> obj;</div><div class="line">       	obj = <span class="literal">NULL</span>;</div><div class="line">       	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>RAII（Resource Acquisition Is Initialization）即“资源获取就是初始化”技术，它是由C++之父Bjarne Stroustrup提出的一种资源管理方法，它的核心思想是将资源抽象为类，用局部对象来表示资源（内存是资源的一种），把管理资源的任务转化为管理局部对象的任务。RAII典型的实践有shared_ptr、auto_ptr等（在boost库中实现，C++11开始纳入到标准库中）。</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Object</span>&#123;</span>...&#125;;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleRAII</span>&#123;</span> <span class="comment">// 这只是一个简单的例子演示，实际生产中，需考虑的问题还有很多</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	SimpleRAII(Object* obj):_obj(obj)&#123;&#125;<span class="comment">// 获取资源</span></div><div class="line">	~SimpleRAII()&#123; <span class="keyword">delete</span> _obj;_obj=<span class="literal">NULL</span>;&#125;<span class="comment">//释放资源</span></div><div class="line">	<span class="function">Object* <span class="title">get</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> _obj;&#125;<span class="comment">//访问资源</span></div><div class="line">	</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	Object* _obj;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p> 优化1中的代码后:</p>
- <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">()</span></span>&#123;</div><div class="line">	Object obj = <span class="keyword">new</span> Object;</div><div class="line">	<span class="function">SimpleRAII <span class="title">raii</span><span class="params">(obj)</span></span>;<span class="comment">// 使用局部对象管理指针</span></div><div class="line">	...</div><div class="line">	<span class="keyword">if</span>(condition) <span class="keyword">return</span>;</div><div class="line">	...</div><div class="line">	<span class="comment">// 这里即使没有try catch 也不会出现问题 raii的析构仍然会被正确调用</span></div><div class="line">	<span class="keyword">try</span>&#123;</div><div class="line">		dosomething();</div><div class="line">	&#125;<span class="keyword">catch</span> (...)&#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line">	...</div><div class="line">	<span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;内容转载自：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://tmq.qq.com/2016/10/memory-leak-rambling/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;内存泄漏漫谈 (http://tmq.qq
-    
-    </summary>
-    
-      <category term="c++" scheme="http://yoursite.com/categories/c/"/>
-    
-    
-      <category term="转载" scheme="http://yoursite.com/tags/%E8%BD%AC%E8%BD%BD/"/>
-    
-      <category term="c++" scheme="http://yoursite.com/tags/c/"/>
-    
-      <category term="内存泄漏" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
-    
-  </entry>
   
   <entry>
     <title>yii2 php多进程 出现 MySQL server has gone away</title>
