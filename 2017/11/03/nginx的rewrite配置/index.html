@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
+<meta name="description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
 <meta name="keywords" content="nginx,rewrite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx的rewrite配置">
 <meta property="og:url" content="http://yoursite.com/2017/11/03/nginx的rewrite配置/index.html">
 <meta property="og:site_name" content="轻芒的博客">
-<meta property="og:description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
+<meta property="og:description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T11:50:05.000Z">
+<meta property="og:updated_time" content="2017-11-03T12:32:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx的rewrite配置">
-<meta name="twitter:description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
+<meta name="twitter:description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
 
 
 
@@ -401,10 +401,12 @@
 
       
         <p>参考：</p>
+<blockquote>
 <ol>
-<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
 <li><a href="https://segmentfault.com/a/1190000008102599" target="_blank" rel="external">https://segmentfault.com/a/1190000008102599</a></li>
+<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
 </ol>
+</blockquote>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
 <h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
 <ol>

@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[nginx的rewrite配置]]></title>
     <url>%2F2017%2F11%2F03%2Fnginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[参考： http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599 背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺序： server块的rewrite指令 location匹配 匹配的location里的rewrite 如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。 location匹配 =开头表示精确匹配 ^~ 开头表示uri以某个常规字符串开头，不是正则匹配 ~ 开头表示区分大小写的正则匹配; ~* 开头表示不区分大小写的正则匹配 / 通用匹配,任何请求都会匹配到 rewrite的flag标志位 last 停止处理当前的rewrite的指令集，并开始搜索与更改后的URI相匹配的location; break 停止处理当前的rewite指令集 redirect 返回302临时重定向。 permanent 返回301永久重定向 小例子1234567891011121314151617181920212223242526272829303132333435server &#123; listen 9033; server_name xxx.com; root /home/admin/project; location / &#123; try_files $uri $uri/ /index.php$is_args$args; autoindex on; index index.php index.html index.htm; &#125; location ~ \.php$ &#123; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; &#125; location ~ /\.(ht|svn|git) &#123; deny all; &#125; location ^~ /static/images &#123; rewrite ^/static(.*)$ /dev/$1 last; &#125; location ^~ /mis &#123; root /home/admin/project; fastcgi_pass 127.0.0.1:9001; fastcgi_index index.php; include fcgi.conf; rewrite ^/mis(/[^\?]*)?((\?.*)?)$ /mis/index.php$1$2 break; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[参考： https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/ 背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺序： server块的rewrite指令 location匹配 匹配的location里的rewrite 如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。 location匹配 =开头表示精确匹配 ^~ 开头表示uri以某个常规字符串开头，不是正则匹配 ~ 开头表示区分大小写的正则匹配; ~* 开头表示不区分大小写的正则匹配 / 通用匹配,任何请求都会匹配到 rewrite的flag标志位 last 停止处理当前的rewrite的指令集，并开始搜索与更改后的URI相匹配的location; break 停止处理当前的rewite指令集 redirect 返回302临时重定向。 permanent 返回301永久重定向 小例子1234567891011121314151617181920212223242526272829303132333435server &#123; listen 9033; server_name xxx.com; root /home/admin/project; location / &#123; try_files $uri $uri/ /index.php$is_args$args; autoindex on; index index.php index.html index.htm; &#125; location ~ \.php$ &#123; fastcgi_pass 127.0.0.1:9000; fastcgi_index index.php; fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; &#125; location ~ /\.(ht|svn|git) &#123; deny all; &#125; location ^~ /static/images &#123; rewrite ^/static(.*)$ /dev/$1 last; &#125; location ^~ /mis &#123; root /home/admin/project; fastcgi_pass 127.0.0.1:9001; fastcgi_index index.php; include fcgi.conf; rewrite ^/mis(/[^\?]*)?((\?.*)?)$ /mis/index.php$1$2 break; &#125;&#125;]]></content>
       <categories>
         <category>nginx</category>
       </categories>
@@ -39,11 +39,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[关于我]]></title>
-    <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[大学&emsp;&emsp;花名轻芒,大学利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[标签]]></title>
     <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
@@ -52,5 +47,10 @@
     <title><![CDATA[分类]]></title>
     <url>%2Fcategories%2Findex.html</url>
     <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[关于我]]></title>
+    <url>%2Fabout%2Findex.html</url>
+    <content type="text"><![CDATA[大学&emsp;&emsp;花名轻芒,大学利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
   </entry>
 </search>

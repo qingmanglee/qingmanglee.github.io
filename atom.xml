@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-03T11:50:05.000Z</updated>
+  <updated>2017-11-03T12:32:44.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,15 @@
     <link href="http://yoursite.com/2017/11/03/nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
     <id>http://yoursite.com/2017/11/03/nginx的rewrite配置/</id>
     <published>2017-11-03T10:37:01.000Z</published>
-    <updated>2017-11-03T11:50:05.000Z</updated>
+    <updated>2017-11-03T12:32:44.000Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
+<blockquote>
 <ol>
-<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
 <li><a href="https://segmentfault.com/a/1190000008102599" target="_blank" rel="external">https://segmentfault.com/a/1190000008102599</a></li>
+<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
 </ol>
+</blockquote>
 <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
 <h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
 <ol>
@@ -54,8 +56,9 @@
     <summary type="html">
     
       &lt;p&gt;参考：&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;http://seanlook.com/2015/05/17/nginx-location-rewrite/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://seanlook.com/2015
+&lt;li&gt;&lt;a href=&quot;https://segmentfault.com/a/1190000008102599&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://segmentfault.c
     
     </summary>
     
