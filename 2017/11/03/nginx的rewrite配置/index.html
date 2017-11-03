@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nginx,rewrite," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="coding">
-<meta property="og:type" content="website">
-<meta property="og:title" content="轻芒的博客">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
+<meta name="keywords" content="nginx,rewrite">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx的rewrite配置">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/nginx的rewrite配置/index.html">
 <meta property="og:site_name" content="轻芒的博客">
-<meta property="og:description" content="coding">
+<meta property="og:description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-03T11:50:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="轻芒的博客">
-<meta name="twitter:description" content="coding">
+<meta name="twitter:title" content="nginx的rewrite配置">
+<meta name="twitter:description" content="参考：  http://seanlook.com/2015/05/17/nginx-location-rewrite/ https://segmentfault.com/a/1190000008102599  背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/03/nginx的rewrite配置/"/>
 
 
 
 
 
-  <title>归档 | 轻芒的博客</title>
+  <title>nginx的rewrite配置 | 轻芒的博客</title>
   
 
 
@@ -157,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -295,148 +297,197 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/03/nginx的rewrite配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="轻芒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="轻芒的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">nginx的rewrite配置</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T18:37:01+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 3 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/03/nginx的rewrite配置/" itemprop="url">
-              
-                <span itemprop="name">nginx的rewrite配置</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-03T18:37:01+08:00"
-              content="2017-11-03" >
-          11-03
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/26/zookeeper伪分布式集群搭建/" itemprop="url">
-              
-                <span itemprop="name">zookeeper伪分布式集群搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-26T19:32:09+08:00"
-              content="2017-10-26" >
-          10-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/08/09/yii2-php多进程-出现-MySQL-server-has-gone-away/" itemprop="url">
-              
-                <span itemprop="name">yii2 php多进程 出现 MySQL server has gone away</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-08-09T14:47:40+08:00"
-              content="2017-08-09" >
-          08-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>参考：</p>
+<ol>
+<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
+<li><a href="https://segmentfault.com/a/1190000008102599" target="_blank" rel="external">https://segmentfault.com/a/1190000008102599</a></li>
+</ol>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
+<h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
+<ol>
+<li>server块的rewrite指令</li>
+<li>location匹配</li>
+<li>匹配的location里的rewrite</li>
+</ol>
+<p>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。</p>
+<h3 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h3><ol>
+<li>=开头表示精确匹配</li>
+<li>^~ 开头表示uri以某个常规字符串开头，不是正则匹配</li>
+<li>~ 开头表示区分大小写的正则匹配;</li>
+<li>~* 开头表示不区分大小写的正则匹配</li>
+<li>/ 通用匹配,任何请求都会匹配到</li>
+</ol>
+<h3 id="rewrite的flag标志位"><a href="#rewrite的flag标志位" class="headerlink" title="rewrite的flag标志位"></a>rewrite的flag标志位</h3><ol>
+<li>last 停止处理当前的rewrite的指令集，并开始搜索与更改后的URI相匹配的location;</li>
+<li>break 停止处理当前的rewite指令集</li>
+<li>redirect 返回302临时重定向。</li>
+<li>permanent 返回301永久重定向</li>
+</ol>
+<h3 id="小例子"><a href="#小例子" class="headerlink" title="小例子"></a>小例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen   9033;</div><div class="line">    server_name  xxx.com;</div><div class="line">    root /home/admin/project;</div><div class="line">    location / &#123;</div><div class="line">        try_files $uri $uri/ /index.php$is_args$args;</div><div class="line">        autoindex on;</div><div class="line">        index  index.php index.html index.htm;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">        fastcgi_pass   127.0.0.1:9000;</div><div class="line">        fastcgi_index  index.php;</div><div class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</div><div class="line">        include        fastcgi_params;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ /\.(ht|svn|git) &#123;</div><div class="line">        deny all;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ^~ /static/images</div><div class="line">    &#123;</div><div class="line">      rewrite ^/static(.*)$ /dev/$1 last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ^~ /mis</div><div class="line">    &#123;</div><div class="line">     root /home/admin/project;</div><div class="line">     fastcgi_pass  127.0.0.1:9001;</div><div class="line">     fastcgi_index index.php;</div><div class="line">     include fcgi.conf;</div><div class="line">     rewrite ^/mis(/[^\?]*)?((\?.*)?)$ /mis/index.php$1$2 break;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/rewrite/" rel="tag"># rewrite</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/26/zookeeper伪分布式集群搭建/" rel="next" title="zookeeper伪分布式集群搭建">
+                <i class="fa fa-chevron-left"></i> zookeeper伪分布式集群搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -444,6 +495,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -464,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -527,6 +591,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rewrite规则"><span class="nav-number">2.</span> <span class="nav-text">rewrite规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location匹配"><span class="nav-number">3.</span> <span class="nav-text">location匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rewrite的flag标志位"><span class="nav-number">4.</span> <span class="nav-text">rewrite的flag标志位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小例子"><span class="nav-number">5.</span> <span class="nav-text">小例子</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -650,11 +730,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   

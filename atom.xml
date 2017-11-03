@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-10-27T07:06:32.000Z</updated>
+  <updated>2017-11-03T11:50:05.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,59 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nginx的rewrite配置</title>
+    <link href="http://yoursite.com/2017/11/03/nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2017/11/03/nginx的rewrite配置/</id>
+    <published>2017-11-03T10:37:01.000Z</published>
+    <updated>2017-11-03T11:50:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：</p>
+<ol>
+<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
+<li><a href="https://segmentfault.com/a/1190000008102599" target="_blank" rel="external">https://segmentfault.com/a/1190000008102599</a></li>
+</ol>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
+<h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
+<ol>
+<li>server块的rewrite指令</li>
+<li>location匹配</li>
+<li>匹配的location里的rewrite</li>
+</ol>
+<p>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。</p>
+<h3 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h3><ol>
+<li>=开头表示精确匹配</li>
+<li>^~ 开头表示uri以某个常规字符串开头，不是正则匹配</li>
+<li>~ 开头表示区分大小写的正则匹配;</li>
+<li>~* 开头表示不区分大小写的正则匹配</li>
+<li>/ 通用匹配,任何请求都会匹配到</li>
+</ol>
+<h3 id="rewrite的flag标志位"><a href="#rewrite的flag标志位" class="headerlink" title="rewrite的flag标志位"></a>rewrite的flag标志位</h3><ol>
+<li>last 停止处理当前的rewrite的指令集，并开始搜索与更改后的URI相匹配的location;</li>
+<li>break 停止处理当前的rewite指令集</li>
+<li>redirect 返回302临时重定向。</li>
+<li>permanent 返回301永久重定向</li>
+</ol>
+<h3 id="小例子"><a href="#小例子" class="headerlink" title="小例子"></a>小例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen   9033;</div><div class="line">    server_name  xxx.com;</div><div class="line">    root /home/admin/project;</div><div class="line">    location / &#123;</div><div class="line">        try_files $uri $uri/ /index.php$is_args$args;</div><div class="line">        autoindex on;</div><div class="line">        index  index.php index.html index.htm;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">        fastcgi_pass   127.0.0.1:9000;</div><div class="line">        fastcgi_index  index.php;</div><div class="line">        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</div><div class="line">        include        fastcgi_params;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ /\.(ht|svn|git) &#123;</div><div class="line">        deny all;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ^~ /static/images</div><div class="line">    &#123;</div><div class="line">      rewrite ^/static(.*)$ /dev/$1 last;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ^~ /mis</div><div class="line">    &#123;</div><div class="line">     root /home/admin/project;</div><div class="line">     fastcgi_pass  127.0.0.1:9001;</div><div class="line">     fastcgi_index index.php;</div><div class="line">     include fcgi.conf;</div><div class="line">     rewrite ^/mis(/[^\?]*)?((\?.*)?)$ /mis/index.php$1$2 break;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;参考：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;http://seanlook.com/2015/05/17/nginx-location-rewrite/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://seanlook.com/2015
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+    
+    
+      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
+    
+      <category term="rewrite" scheme="http://yoursite.com/tags/rewrite/"/>
+    
+  </entry>
   
   <entry>
     <title>zookeeper伪分布式集群搭建</title>
