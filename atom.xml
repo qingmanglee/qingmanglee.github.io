@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-03T12:32:44.000Z</updated>
+  <updated>2017-11-05T10:16:34.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>58沈剑的《架构师之路》学习笔记</title>
+    <link href="http://yoursite.com/2017/11/05/58%E6%B2%88%E5%89%91%E7%9A%84%E3%80%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E4%B9%8B%E8%B7%AF%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2017/11/05/58沈剑的《架构师之路》学习笔记/</id>
+    <published>2017-11-05T08:59:37.000Z</published>
+    <updated>2017-11-05T10:16:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>前端时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。</strong></p>
+<h3 id="高可用架构"><a href="#高可用架构" class="headerlink" title="高可用架构"></a>高可用架构</h3><p>高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。</p>
+<p>方法论上，高可用是通过冗余+自动故障转移来实现的。<br>整个互联网分层系统架构的高可用，又是通过每一层的冗余+自动故障转移来综合实现的，具体的：</p>
+<ol>
+<li>客户端层】到【反向代理层】的高可用，是通过反向代理层的冗余实现的，常见实践是keepalived + virtual IP自动故障转移</li>
+<li>【反向代理层】到【站点层】的高可用，是通过站点层的冗余实现的，常见实践是nginx与web-server之间的存活性探测与自动故障转移</li>
+<li>【站点层】到【服务层】的高可用，是通过服务层的冗余实现的，常见实践是通过service-connection-pool来保证自动故障转移</li>
+<li>【服务层】到【缓存层】的高可用，是通过缓存数据的冗余实现的，常见实践是缓存客户端双读双写，或者利用缓存集群的主从数据同步与sentinel保活与自动故障转移；更多的业务场景，对缓存没有高可用要求，可以使用缓存服务化来对调用方屏蔽底层复杂性</li>
+<li>【服务层】到【数据库“读”】的高可用，是通过读库的冗余实现的，常见实践是通过db-connection-pool来保证自动故障转移</li>
+<li>【服务层】到【数据库“写”】的高可用，是通过写库的冗余实现的，常见实践是keepalived + virtual IP自动故障转移</li>
+</ol>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>负载均衡（Load Balance）是分布式系统架构设计中必须考虑的因素之一，它通常是指，将请求/数据【均匀】分摊到多个操作单元上执行，负载均衡的关键在于【均匀】。</p>
+<ol>
+<li>【客户端层】到【反向代理层】的负载均衡，是通过“DNS轮询”实现的</li>
+<li>【反向代理层】到【站点层】的负载均衡，是通过“nginx”实现的</li>
+<li>【站点层】到【服务层】的负载均衡，是通过“服务连接池”实现的</li>
+<li>【数据层】的负载均衡，要考虑“数据的均衡”与“请求的均衡”两个点，常见的方式有“按照范围水平切分”与“hash水平切分”</li>
+</ol>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><h5 id="分库"><a href="#分库" class="headerlink" title="分库"></a>分库</h5><ol>
+<li>hash取模：user_id%2=0为0库，user_id%2=1为1库。</li>
+<li>数据分段：user_id属于[0, 1亿]为0库，属于[1亿, 2亿]为2库。</li>
+<li>引入像mycat等数据库中间件</li>
+</ol>
+<h5 id="数据库使用规范"><a href="#数据库使用规范" class="headerlink" title="数据库使用规范"></a>数据库使用规范</h5><ul>
+<li>参见公众号《58到家数据库30条军规解读》</li>
+</ul>
+<h3 id="线程数究竟设多少合理"><a href="#线程数究竟设多少合理" class="headerlink" title="线程数究竟设多少合理"></a>线程数究竟设多少合理</h3><ul>
+<li>结论：N核服务器，通过执行业务的单线程分析出本地计算时间为x，等待时间为y，则工作线程数（线程池线程数）设置为 N*(x+y)/x，能让CPU的利用率最大化。</li>
+<li>经验：一般来说，非CPU密集型的业务（加解密、压缩解压缩、搜索排序等业务是CPU密集型的业务），瓶颈都在后端数据库，本地CPU计算的时间很少，所以设置几十或者几百个工作线程也都是可能的。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;前端时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本
+    
+    </summary>
+    
+      <category term="架构" scheme="http://yoursite.com/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+    
+      <category term="架构" scheme="http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>nginx的rewrite配置</title>
