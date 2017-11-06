@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="轻芒的博客">
 <meta property="og:description" content="前言前端时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-05T11:02:59.000Z">
+<meta property="og:updated_time" content="2017-11-05T12:24:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="58沈剑的《架构师之路》学习笔记">
 <meta name="twitter:description" content="前言前端时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移">
@@ -418,13 +418,23 @@
 <li>【站点层】到【服务层】的负载均衡，是通过“服务连接池”实现的</li>
 <li>【数据层】的负载均衡，要考虑“数据的均衡”与“请求的均衡”两个点，常见的方式有“按照范围水平切分”与“hash水平切分”</li>
 </ol>
-<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><h5 id="分库"><a href="#分库" class="headerlink" title="分库"></a>分库</h5><ol>
+<h3 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h3><ul>
+<li>数据库使用规范<ul>
+<li>参见公众号里的文章《58到家数据库30条军规解读》</li>
+</ul>
+</li>
+<li>分库<ol>
 <li>hash取模：user_id%2=0为0库，user_id%2=1为1库。</li>
 <li>数据分段：user_id属于[0, 1亿]为0库，属于[1亿, 2亿]为2库。</li>
 <li>引入像mycat等数据库中间件</li>
 </ol>
-<h5 id="数据库使用规范"><a href="#数据库使用规范" class="headerlink" title="数据库使用规范"></a>数据库使用规范</h5><ul>
-<li>参见公众号里的文章《58到家数据库30条军规解读》</li>
+</li>
+<li>保证数据的安全性是DBA第一要务，需要进行：<ol>
+<li>全量备份+增量备份，并定期进行恢复演练，但该方案恢复时间较久，对系统可用性影响大</li>
+<li>1小时延时从，双份1小时延时从能极大加速数据库恢复时间</li>
+<li>个人建议1小时延时从足够，后台只读服务可以连1小时延时从，提高资源利用率</li>
+</ol>
+</li>
 </ul>
 <h3 id="线程数究竟设多少合理"><a href="#线程数究竟设多少合理" class="headerlink" title="线程数究竟设多少合理"></a>线程数究竟设多少合理</h3><ul>
 <li>结论：N核服务器，通过执行业务的单线程分析出本地计算时间为x，等待时间为y，则工作线程数（线程池线程数）设置为 N*(x+y)/x，能让CPU的利用率最大化。</li>
@@ -602,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">2.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分库"><span class="nav-number">4.0.1.</span> <span class="nav-text">分库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库使用规范"><span class="nav-number">4.0.2.</span> <span class="nav-text">数据库使用规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">5.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">2.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">5.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li></ol></div>
             
 
           </div>
