@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
+<meta name="description" content="背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺序：    server块的rewrite指令 location匹配 匹配的location里的rewrite  如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回5">
 <meta name="keywords" content="nginx,rewrite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx的rewrite配置">
 <meta property="og:url" content="http://yoursite.com/2017/11/03/nginx的rewrite配置/index.html">
 <meta property="og:site_name" content="轻芒的博客">
-<meta property="og:description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
+<meta property="og:description" content="背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺序：    server块的rewrite指令 location匹配 匹配的location里的rewrite  如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回5">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-03T12:32:44.000Z">
+<meta property="og:updated_time" content="2017-11-06T12:18:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx的rewrite配置">
-<meta name="twitter:description" content="参考：   https://segmentfault.com/a/1190000008102599 http://seanlook.com/2015/05/17/nginx-location-rewrite/   背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执">
+<meta name="twitter:description" content="背景之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下nginx的rewrite的相关知识。 rewrite规则执行顺序：    server块的rewrite指令 location匹配 匹配的location里的rewrite  如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回5">
 
 
 
@@ -400,14 +400,7 @@
       
 
       
-        <p>参考：</p>
-<blockquote>
-<ol>
-<li><a href="https://segmentfault.com/a/1190000008102599" target="_blank" rel="external">https://segmentfault.com/a/1190000008102599</a></li>
-<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></li>
-</ol>
-</blockquote>
-<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
 <h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
 <ol>
 <li>server块的rewrite指令</li>
@@ -416,11 +409,11 @@
 </ol>
 <p>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。</p>
 <h3 id="location匹配"><a href="#location匹配" class="headerlink" title="location匹配"></a>location匹配</h3><ol>
-<li>=开头表示精确匹配</li>
+<li>= 开头表示精确匹配</li>
 <li>^~ 开头表示uri以某个常规字符串开头，不是正则匹配</li>
 <li>~ 开头表示区分大小写的正则匹配;</li>
 <li>~* 开头表示不区分大小写的正则匹配</li>
-<li>/ 通用匹配,任何请求都会匹配到</li>
+<li>/ 通用匹配, 任何请求都会匹配到</li>
 </ol>
 <h3 id="rewrite的flag标志位"><a href="#rewrite的flag标志位" class="headerlink" title="rewrite的flag标志位"></a>rewrite的flag标志位</h3><ol>
 <li>last 停止处理当前的rewrite的指令集，并开始搜索与更改后的URI相匹配的location;</li>
@@ -550,7 +543,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -561,7 +554,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -572,7 +565,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
