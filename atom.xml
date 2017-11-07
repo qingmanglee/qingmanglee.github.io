@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-07T03:50:28.000Z</updated>
+  <updated>2017-11-07T07:10:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://yoursite.com/2017/11/05/58%E6%B2%88%E5%89%91%E7%9A%84%E3%80%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E4%B9%8B%E8%B7%AF%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/11/05/58沈剑的《架构师之路》学习笔记/</id>
     <published>2017-11-05T08:59:37.000Z</published>
-    <updated>2017-11-07T03:50:28.000Z</updated>
+    <updated>2017-11-07T07:10:41.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。</strong></p>
+    <content type="html"><![CDATA[<p><strong>前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。</strong></p>
 <h3 id="高可用架构"><a href="#高可用架构" class="headerlink" title="高可用架构"></a>高可用架构</h3><p>高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。</p>
 <p>方法论上，高可用是通过冗余+自动故障转移来实现的。<br>整个互联网分层系统架构的高可用，又是通过每一层的冗余+自动故障转移来综合实现的，具体的：</p>
 <ol>
@@ -66,7 +66,8 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本
+      &lt;p&gt;&lt;strong&gt;前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;高可用架构
     
     </summary>
     
@@ -78,13 +79,13 @@
   </entry>
   
   <entry>
-    <title>nginx的rewrite配置</title>
-    <link href="http://yoursite.com/2017/11/03/nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
-    <id>http://yoursite.com/2017/11/03/nginx的rewrite配置/</id>
+    <title>Nginx的rewrite配置</title>
+    <link href="http://yoursite.com/2017/11/03/Nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2017/11/03/Nginx的rewrite配置/</id>
     <published>2017-11-03T10:37:01.000Z</published>
-    <updated>2017-11-06T12:18:13.000Z</updated>
+    <updated>2017-11-07T07:17:40.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
+    <content type="html"><![CDATA[<p>之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下<br>nginx的rewrite的相关知识。</p>
 <h3 id="rewrite规则"><a href="#rewrite规则" class="headerlink" title="rewrite规则"></a>rewrite规则</h3><p>执行顺序：  </p>
 <ol>
 <li>server块的rewrite指令</li>
@@ -110,27 +111,28 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下&lt;br&gt;nginx
+      &lt;p&gt;之前用yii2在框架层即可通过配置urlManager完成url的重写，最近一个纯php项目需要接入集团的单点登录，记录下&lt;br&gt;nginx的rewrite的相关知识。&lt;/p&gt;
+&lt;h3 id=&quot;rewrite规则&quot;&gt;&lt;a href=&quot;#rewrite规则&quot; class=&quot;h
     
     </summary>
     
-      <category term="nginx" scheme="http://yoursite.com/categories/nginx/"/>
+      <category term="Nginx" scheme="http://yoursite.com/categories/Nginx/"/>
     
     
-      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
+      <category term="Nginx" scheme="http://yoursite.com/tags/Nginx/"/>
     
       <category term="rewrite" scheme="http://yoursite.com/tags/rewrite/"/>
     
   </entry>
   
   <entry>
-    <title>zookeeper伪分布式集群搭建</title>
+    <title>ZooKeeper伪分布式集群搭建</title>
     <link href="http://yoursite.com/2017/10/26/zookeeper%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
     <id>http://yoursite.com/2017/10/26/zookeeper伪分布式集群搭建/</id>
     <published>2017-10-26T11:32:09.000Z</published>
-    <updated>2017-10-27T07:06:32.000Z</updated>
+    <updated>2017-11-07T07:20:10.000Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><a href="https://zh.wikipedia.org/wiki/Apache_ZooKeeper" target="_blank" rel="external">ZooKeeper</a>是一个分布式的，开放源码的分布式应用程序协调服务，<a href="https://zookeeper.apache.org/" target="_blank" rel="external">参见官网</a>。典型应用场景，如目录服务、配置管理、同步、集群节点选举、消息队列、通知系统等。本文演示搭建一个单机三个实例的伪分布集群。</p>
+    <content type="html"><![CDATA[<p><a href="https://zh.wikipedia.org/wiki/Apache_ZooKeeper" target="_blank" rel="external">ZooKeeper</a>是一个分布式的，开放源码的分布式应用程序协调服务，<a href="https://zookeeper.apache.org/" target="_blank" rel="external">参见官网</a>。典型应用场景，如目录服务、配置管理、同步、集群节点选举、消息队列、通知系统等。本文演示搭建一个单机三个实例的伪分布集群。</p>
 <h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>下载并解压zookeeper。创建三个目录，分别为这三个实例的目录环境，并在三个目录中创建内容分别为1，2，3的名称为myid文件。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$tree zoo1/ zoo2/ zoo3</div><div class="line">zoo1/</div><div class="line">└── myid</div><div class="line">zoo2/</div><div class="line">└── myid</div><div class="line">zoo3</div><div class="line">└── myid</div></pre></td></tr></table></figure>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在zookeeper的配置目录下，分别创建三个名为zoo1.cfg、zoo2.cfg、zoo3.cfg的配置文件。<br>以server.1=10.101.80.35:9110:9210为例，1为对应实例myid内容编号，10.101.80.35为ip，9110为Leader选举的端口，9210为zookeeper实例之间通信的端口，因搭建的伪分布式集群，所以端口各不相同，真实的分布式集群，三个实例的端口通常相同。</p>
@@ -142,14 +144,14 @@
     
     <summary type="html">
     
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Apache_ZooKeeper&quot; target=&quot;_blan
+      &lt;p&gt;&lt;a href=&quot;https://zh.wikipedia.org/wiki/Apache_ZooKeeper&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ZooKeeper&lt;/a&gt;是一个分布式的，开放源码的分布式应用程序协调服务，&lt;a href=&quot;ht
     
     </summary>
     
-      <category term="zookeeper" scheme="http://yoursite.com/categories/zookeeper/"/>
+      <category term="分布式" scheme="http://yoursite.com/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="zookeeper" scheme="http://yoursite.com/tags/zookeeper/"/>
+      <category term="ZooKeeper" scheme="http://yoursite.com/tags/ZooKeeper/"/>
     
       <category term="分布式" scheme="http://yoursite.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
@@ -157,10 +159,10 @@
   
   <entry>
     <title>yii2 php多进程 出现 MySQL server has gone away</title>
-    <link href="http://yoursite.com/2017/08/09/yii2-php%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%87%BA%E7%8E%B0-MySQL-server-has-gone-away/"/>
-    <id>http://yoursite.com/2017/08/09/yii2-php多进程-出现-MySQL-server-has-gone-away/</id>
+    <link href="http://yoursite.com/2017/08/09/Yii2-PHP%E5%A4%9A%E8%BF%9B%E7%A8%8B-%E5%87%BA%E7%8E%B0-MySQL-server-has-gone-away/"/>
+    <id>http://yoursite.com/2017/08/09/Yii2-PHP多进程-出现-MySQL-server-has-gone-away/</id>
     <published>2017-08-09T06:47:40.000Z</published>
-    <updated>2017-10-26T11:08:02.000Z</updated>
+    <updated>2017-11-07T07:18:25.000Z</updated>
     
     <content type="html"><![CDATA[<h3 id="问题-amp-场景"><a href="#问题-amp-场景" class="headerlink" title="问题&amp;场景"></a>问题&amp;场景</h3><p>在yii2的command，利用多进程消费数据库中的数据时，总是出现gone away。</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>在mysql的官方文档中其实有专门的章节说明这个问题，原因也是各种各样，<a href="https://dev.mysql.com/doc/refman/5.7/en/gone-away.html" target="_blank" rel="external">详见</a>；<br>其中有一条刚好符合我的场景，大意就是，当fork的子进程都共用相同的mysql连接的时候，会出现该错误，每个子进程单独一个mysql连接即可解决。</p>
@@ -177,16 +179,16 @@
     
     </summary>
     
-      <category term="php" scheme="http://yoursite.com/categories/php/"/>
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
     
     
-      <category term="php" scheme="http://yoursite.com/tags/php/"/>
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
     
-      <category term="yii2" scheme="http://yoursite.com/tags/yii2/"/>
+      <category term="Yii2" scheme="http://yoursite.com/tags/Yii2/"/>
     
       <category term="多进程" scheme="http://yoursite.com/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
     
-      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+      <category term="MySql" scheme="http://yoursite.com/tags/MySql/"/>
     
   </entry>
   
@@ -195,7 +197,7 @@
     <link href="http://yoursite.com/2016/08/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/"/>
     <id>http://yoursite.com/2016/08/06/正则表达式基础/</id>
     <published>2016-08-06T11:00:25.000Z</published>
-    <updated>2017-11-06T13:30:21.000Z</updated>
+    <updated>2017-11-07T07:20:58.000Z</updated>
     
     <content type="html"><![CDATA[<p>参考：</p>
 <blockquote>
@@ -321,10 +323,38 @@
     
     </summary>
     
-      <category term="杂" scheme="http://yoursite.com/categories/%E6%9D%82/"/>
+      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
       <category term="正则表达式" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于编程</title>
+    <link href="http://yoursite.com/2016/08/05/%E5%85%B3%E4%BA%8E%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/2016/08/05/关于编程/</id>
+    <published>2016-08-05T07:21:09.000Z</published>
+    <updated>2017-11-07T07:28:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>看别人的代码，是一种非常有效的学习，可以扩展自己的思路</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;看别人的代码，是一种非常有效的学习，可以扩展自己的思路&lt;/li&gt;
+&lt;/ul&gt;
+
+    
+    </summary>
+    
+      <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
+    
+    
+      <category term="感悟，编程人生" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F%EF%BC%8C%E7%BC%96%E7%A8%8B%E4%BA%BA%E7%94%9F/"/>
     
   </entry>
   
@@ -359,6 +389,34 @@
       <category term="浪潮之巅" scheme="http://yoursite.com/tags/%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85/"/>
     
       <category term="读书" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于职场</title>
+    <link href="http://yoursite.com/2016/07/01/%E5%85%B3%E4%BA%8E%E8%81%8C%E5%9C%BA/"/>
+    <id>http://yoursite.com/2016/07/01/关于职场/</id>
+    <published>2016-07-01T07:25:27.000Z</published>
+    <updated>2017-11-07T07:28:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li>善于倾听，尤其是别人的意见甚至是批评，这是提高自己的最佳途径，工作之后给自己提建议的人并不多。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;善于倾听，尤其是别人的意见甚至是批评，这是提高自己的最佳途径，工作之后给自己提建议的人并不多。&lt;/li&gt;
+&lt;/ul&gt;
+
+    
+    </summary>
+    
+      <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
+    
+    
+      <category term="感悟，职场生涯" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F%EF%BC%8C%E8%81%8C%E5%9C%BA%E7%94%9F%E6%B6%AF/"/>
     
   </entry>
   

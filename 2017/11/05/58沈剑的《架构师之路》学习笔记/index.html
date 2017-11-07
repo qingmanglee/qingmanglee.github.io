@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="前言前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移">
+<meta name="description" content="前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移来实">
 <meta name="keywords" content="架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="58沈剑的《架构师之路》学习笔记">
 <meta property="og:url" content="http://yoursite.com/2017/11/05/58沈剑的《架构师之路》学习笔记/index.html">
 <meta property="og:site_name" content="轻芒的博客">
-<meta property="og:description" content="前言前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移">
+<meta property="og:description" content="前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移来实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T03:50:28.000Z">
+<meta property="og:updated_time" content="2017-11-07T07:10:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="58沈剑的《架构师之路》学习笔记">
-<meta name="twitter:description" content="前言前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移">
+<meta name="twitter:description" content="前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移来实">
 
 
 
@@ -400,7 +400,7 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。</strong></p>
+        <p><strong>前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。</strong></p>
 <h3 id="高可用架构"><a href="#高可用架构" class="headerlink" title="高可用架构"></a>高可用架构</h3><p>高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。</p>
 <p>方法论上，高可用是通过冗余+自动故障转移来实现的。<br>整个互联网分层系统架构的高可用，又是通过每一层的冗余+自动故障转移来综合实现的，具体的：</p>
 <ol>
@@ -470,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/03/nginx的rewrite配置/" rel="next" title="nginx的rewrite配置">
-                <i class="fa fa-chevron-left"></i> nginx的rewrite配置
+              <a href="/2017/11/03/Nginx的rewrite配置/" rel="next" title="Nginx的rewrite配置">
+                <i class="fa fa-chevron-left"></i> Nginx的rewrite配置
               </a>
             
           </div>
@@ -555,7 +555,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -566,7 +566,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -577,7 +577,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -612,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">2.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">4.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">5.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">1.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">4.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li></ol></div>
             
 
           </div>
