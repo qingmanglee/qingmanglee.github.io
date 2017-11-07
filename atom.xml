@@ -399,7 +399,7 @@
     <link href="http://yoursite.com/2016/07/01/%E5%85%B3%E4%BA%8E%E8%81%8C%E5%9C%BA/"/>
     <id>http://yoursite.com/2016/07/01/关于职场/</id>
     <published>2016-07-01T07:25:27.000Z</published>
-    <updated>2017-11-07T07:28:06.000Z</updated>
+    <updated>2017-11-07T11:58:50.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>善于倾听，尤其是别人的意见甚至是批评，这是提高自己的最佳途径，工作之后给自己提建议的人并不多。</li>
@@ -418,7 +418,9 @@
       <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟，职场生涯" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F%EF%BC%8C%E8%81%8C%E5%9C%BA%E7%94%9F%E6%B6%AF/"/>
+      <category term="感悟" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="职场生涯" scheme="http://yoursite.com/tags/%E8%81%8C%E5%9C%BA%E7%94%9F%E6%B6%AF/"/>
     
   </entry>
   
