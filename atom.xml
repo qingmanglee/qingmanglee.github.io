@@ -335,7 +335,7 @@
     <link href="http://yoursite.com/2016/08/05/%E5%85%B3%E4%BA%8E%E7%BC%96%E7%A8%8B/"/>
     <id>http://yoursite.com/2016/08/05/关于编程/</id>
     <published>2016-08-05T07:21:09.000Z</published>
-    <updated>2017-11-07T07:28:35.000Z</updated>
+    <updated>2017-11-07T07:30:19.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li>看别人的代码，是一种非常有效的学习，可以扩展自己的思路</li>
@@ -354,7 +354,9 @@
       <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟，编程人生" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F%EF%BC%8C%E7%BC%96%E7%A8%8B%E4%BA%BA%E7%94%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="编程人生" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B%E4%BA%BA%E7%94%9F/"/>
     
   </entry>
   
