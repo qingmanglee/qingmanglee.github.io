@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-07T07:10:41.000Z</updated>
+  <updated>2017-11-27T13:31:08.806Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Golang并行编程实践</title>
+    <link href="http://yoursite.com/2017/11/27/Golang%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2017/11/27/Golang并行编程实践/</id>
+    <published>2017-11-27T12:34:22.000Z</published>
+    <updated>2017-11-27T13:31:08.806Z</updated>
+    
+    <content type="html"><![CDATA[<p>Golang天然支持并行编程并且很轻量，利用goroutine和channel，可以很容易的开发出并行程序</p><h3 id="场景一"><a href="#场景一" class="headerlink" title="场景一"></a>场景一</h3><p>假设现在我们需要同时处理若干任务，处理完成之后，再将结果汇总返回，代码如下</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line"><span class="string">"log"</span></span><br><span class="line"><span class="string">"math/rand"</span></span><br><span class="line"><span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ResData <span class="keyword">struct</span> &#123;</span><br><span class="line">Status <span class="keyword">int</span></span><br><span class="line">Msg    <span class="keyword">string</span></span><br><span class="line">TaskId <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">mapTasks := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;<span class="number">1</span>: <span class="string">"任务1"</span>, <span class="number">2</span>: <span class="string">"任务2"</span>, <span class="number">3</span>: <span class="string">"任务3"</span>, <span class="number">4</span>: <span class="string">"任务4"</span>, <span class="number">5</span>: <span class="string">"任务5"</span>, <span class="number">6</span>: <span class="string">"任务6"</span>, <span class="number">7</span>: <span class="string">"任务7"</span>, <span class="number">8</span>: <span class="string">"任务8"</span>&#125;</span><br><span class="line"></span><br><span class="line">taskNums := <span class="built_in">len</span>(mapTasks)</span><br><span class="line">chanTask := <span class="built_in">make</span>(<span class="keyword">chan</span> ResData, taskNums)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> taskId, task := <span class="keyword">range</span> mapTasks &#123;</span><br><span class="line"><span class="keyword">go</span> taskWorker(taskId, task, chanTask)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= taskNums; i++ &#123;</span><br><span class="line">resTask := &lt;-chanTask</span><br><span class="line">log.Printf(<span class="string">"%+v"</span>, resTask)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> resTask.Status != <span class="number">1</span> &#123;</span><br><span class="line">log.Println(resTask.Msg + <span class="string">"处理失败"</span>)</span><br><span class="line"><span class="comment">// do something</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">log.Println(resTask.Msg + <span class="string">"咦~~~~, 处理成功"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">taskWorker</span><span class="params">(taskId <span class="keyword">int</span>, task <span class="keyword">string</span>, chanTask <span class="keyword">chan</span>&lt;- ResData)</span></span> &#123;</span><br><span class="line"><span class="comment">// 模拟处理任务，并产生一个随机结果</span></span><br><span class="line">log.Println(<span class="string">"开始处理任务："</span>, task)</span><br><span class="line">time.Sleep(time.Second)</span><br><span class="line">res := rand.Intn(<span class="number">2</span>)</span><br><span class="line">log.Println(<span class="string">"任务："</span>, task, <span class="string">"处理完成"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> res == <span class="number">1</span> &#123;</span><br><span class="line">chanTask &lt;- ResData&#123;Status: <span class="number">1</span>, Msg: <span class="string">"success"</span>, TaskId: taskId&#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">chanTask &lt;- ResData&#123;Status: <span class="number">0</span>, Msg: <span class="string">"fail"</span>, TaskId: taskId&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Golang天然支持并行编程并且很轻量，利用goroutine和channel，可以很容易的开发出并行程序&lt;/p&gt;
+&lt;h3 id=&quot;场景一&quot;&gt;&lt;a href=&quot;#场景一&quot; class=&quot;headerlink&quot; title=&quot;场景一&quot;&gt;&lt;/a&gt;场景一&lt;/h3&gt;&lt;p&gt;假设现在我
+      
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+      <category term="并行" scheme="http://yoursite.com/tags/%E5%B9%B6%E8%A1%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>58沈剑的《架构师之路》学习笔记</title>
