@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Golang并行编程实践]]></title>
     <url>%2F2017%2F11%2F27%2FGolang%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%2F</url>
-    <content type="text"><![CDATA[Golang天然支持并行编程并且很轻量，利用goroutine和channel，可以很容易的开发出并行程序 场景一假设现在我们需要同时处理若干任务，处理完成之后，再将结果汇总返回，代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253package mainimport ( "log" "math/rand" "time")type ResData struct &#123; Status int Msg string TaskId int&#125;func main() &#123; mapTasks := map[int]string&#123;1: "任务1", 2: "任务2", 3: "任务3", 4: "任务4", 5: "任务5", 6: "任务6", 7: "任务7", 8: "任务8"&#125; taskNums := len(mapTasks) chanTask := make(chan ResData, taskNums) for taskId, task := range mapTasks &#123; go taskWorker(taskId, task, chanTask) &#125; for i := 1; i &lt;= taskNums; i++ &#123; resTask := &lt;-chanTask log.Printf("%+v", resTask) if resTask.Status != 1 &#123; log.Println(resTask.Msg + "处理失败") // do something &#125; else &#123; log.Println(resTask.Msg + "咦~~~~, 处理成功") &#125; &#125;&#125;func taskWorker(taskId int, task string, chanTask chan&lt;- ResData) &#123; // 模拟处理任务，并产生一个随机结果 log.Println("开始处理任务：", task) time.Sleep(time.Second) res := rand.Intn(2) log.Println("任务：", task, "处理完成") if res == 1 &#123; chanTask &lt;- ResData&#123;Status: 1, Msg: "success", TaskId: taskId&#125; &#125; else &#123; chanTask &lt;- ResData&#123;Status: 0, Msg: "fail", TaskId: taskId&#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[Golang天然支持并行编程并且很轻量，利用goroutine和channel，可以很容易的开发出并行程序 Channel协程之间的通信，官方推荐是channel来实现的。在这里只说下，channel缓冲和无缓冲的区别 无缓冲：当向无缓冲的通道中写数据的时候，必须等到该数据被取出之后，才能再次写入 有缓冲：当向有缓冲的通道中写入数据的时候，除非当通道中数据量已经满了，否则可以一直写入；当通道数据满了之后，必须等到通道中的数据被消耗，才能再次向通道中写入数据 场景一假设现在我们需要同时处理若干任务，处理完成之后，再将结果汇总返回，比较注重任务的处理结果，代码实现如下: 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253package mainimport ( "log" "math/rand" "time")type ResData struct &#123; Status int Msg string TaskId int&#125;func main() &#123; mapTasks := map[int]string&#123;1: "任务1", 2: "任务2", 3: "任务3", 4: "任务4", 5: "任务5", 6: "任务6", 7: "任务7", 8: "任务8"&#125; taskNums := len(mapTasks) // 任务数量 chanTask := make(chan ResData, taskNums) // 新建缓冲数为任务量的通道 for taskId, task := range mapTasks &#123; go taskWorker(taskId, task, chanTask) // 利用goroutine起并行任务 &#125; for i := 1; i &lt;= taskNums; i++ &#123; // 等待任务处理结果 resTask := &lt;-chanTask log.Printf("%+v", resTask) if resTask.Status != 1 &#123; log.Println(resTask.Msg + "处理失败") // do something &#125; else &#123; log.Println(resTask.Msg + "咦~~~~, 处理成功") &#125; &#125;&#125;func taskWorker(taskId int, task string, chanTask chan&lt;- ResData) &#123; // 模拟处理任务，并产生一个随机结果 log.Println("开始处理任务：", task) time.Sleep(time.Second) res := rand.Intn(2) log.Println("任务：", task, "处理完成") if res == 1 &#123;// 处理成功 chanTask &lt;- ResData&#123;Status: 1, Msg: "success", TaskId: taskId&#125; &#125; else &#123; chanTask &lt;- ResData&#123;Status: 0, Msg: "fail", TaskId: taskId&#125; &#125;&#125; 场景二假设我们现在需要并行处理一些任务，但是并不是非常关心任务的处理结果，我们可以使用waitGroup来实现一种简单粗暴的并行处理, 代码如下： 123456789101112131415161718192021222324package mainimport "sync"func main()&#123; var wg sync.WaitGroup arrTasks := []string&#123;"任务1", "任务2", "任务3", "任务4"&#125; for _, task := range arrTasks &#123; wg.Add(1) go func(task string) &#123; defer wg.Done() go taskWorker1(task) &#125;(task) &#125; wg.Wait() // 等待所有任务结束&#125;func taskWorker1(task string) &#123; // do something&#125;]]></content>
       <categories>
         <category>Golang</category>
       </categories>
@@ -109,9 +109,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[分类]]></title>
-    <url>%2Fcategories%2Findex.html</url>
-    <content type="text"></content>
+    <title><![CDATA[关于我]]></title>
+    <url>%2Fabout%2Findex.html</url>
+    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
   </entry>
   <entry>
     <title><![CDATA[标签]]></title>
@@ -119,8 +119,8 @@
     <content type="text"></content>
   </entry>
   <entry>
-    <title><![CDATA[关于我]]></title>
-    <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
+    <title><![CDATA[分类]]></title>
+    <url>%2Fcategories%2Findex.html</url>
+    <content type="text"></content>
   </entry>
 </search>
