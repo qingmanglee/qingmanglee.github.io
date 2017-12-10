@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[vue.js异步更新队列]]></title>
     <url>%2F2017%2F12%2F10%2Fvue-js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97%2F</url>
-    <content type="text"><![CDATA[在做项目的时候，发现需要在更新数据之后，组件不会立马被渲染。而我们的需求是需要在组件数据发生变化后，等待dom更新，然后再次更新组件的状态。认真的扒了扒官方文档，其实官方给出了解决方案，具体就是通过nextTick来实现。官方文档 场景&amp;实现123456789101112131415161718192021222324&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; watch: &#123; dataChange: function (updateRes) &#123; this.doSomethingAfterDomUpdate(); &#125; &#125;, methods:&#123; doSomethingAfterDomUpdate:function () &#123; this.$nextTick(function () &#123; // do something &#125;) &#125;, &#125; &#125;&lt;/script&gt;]]></content>
+    <content type="text"><![CDATA[在做项目的时候，发现需要在更新数据之后，组件不会立马被渲染。而我们的需求是需要在组件数据发生变化后，等待dom更新，然后再次更新组件的状态。认真的扒了扒官方文档，其实官方给出了解决方案，具体就是通过nextTick来实现。官方文档 场景&amp;实现12345678910111213141516171819202122232425&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; watch: &#123; dataChange: function (updateRes) &#123; this.doSomethingAfterDomUpdate(); &#125; &#125;, methods:&#123; doSomethingAfterDomUpdate:function () &#123; this.$nextTick(function () &#123; // do something &#125;) &#125;, &#125; &#125;&lt;/script&gt;]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -160,6 +160,11 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[标签]]></title>
+    <url>%2Ftags%2Findex.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[关于我]]></title>
     <url>%2Fabout%2Findex.html</url>
     <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
@@ -167,11 +172,6 @@
   <entry>
     <title><![CDATA[分类]]></title>
     <url>%2Fcategories%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
-    <title><![CDATA[标签]]></title>
-    <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
   </entry>
 </search>
