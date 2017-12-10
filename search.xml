@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue.js异步更新队列]]></title>
+    <url>%2F2017%2F12%2F10%2Fvue-js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97%2F</url>
+    <content type="text"><![CDATA[在做项目的时候，发现需要在更新数据之后，组件不会立马被渲染。而我们的需求是需要在组件数据发生变化后，等待dom更新，然后再次更新组件的状态。认真的扒了扒官方文档，其实官方给出了解决方案，具体就是通过nextTick来实现。官方文档 场景&amp;实现123456789101112131415161718192021222324&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; watch: &#123; dataChange: function (updateRes) &#123; this.doSomethingAfterDomUpdate(); &#125; &#125;, methods:&#123; doSomethingAfterDomUpdate:function () &#123; this.$nextTick(function () &#123; // do something &#125;) &#125;, &#125; &#125;&lt;/script&gt;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue.js</tag>
+        <tag>队列</tag>
+        <tag>组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vue.js非父子组件通信]]></title>
+    <url>%2F2017%2F12%2F10%2Fvue-js%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
+    <content type="text"><![CDATA[上一篇已经写了父子组件通信的具体实践，但在时间开发中，非父子组件间的通信相对较为复杂。常见的解决方案： 是通过new一个空的Vue实例，来作为事件总线，这种方式对于大部分的情况都是可以解决的。 如果需要更为复杂的状态管理，这个时候引入vuex来实现，更为方便快捷 空Vue实例实现brother1通过按钮触发事件，向brother2发送数据； 父组件代码 12345678910111213141516171819202122&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;brother1&gt;&lt;/brother1&gt; &lt;brother2&gt;&lt;/brother2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import brother1 from './brother1.vue'; import brother2 from './brother2.vue'; export default &#123; components:&#123; brother1, brother2, &#125;, &#125;&lt;/script&gt; brother1组件代码 12345678910111213141516171819202122232425&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToBrother"&gt;sengDataToBrother&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import bus from './eventBus'; export default &#123; data:function () &#123; return &#123; msg: 'i am brother1' &#125; &#125;, methods:&#123; sengDataToBrother:function () &#123; bus.$emit('busEvent',this.msg); &#125; &#125; &#125;&lt;/script&gt; brother2组件代码 12345678910111213141516171819202122232425262728293031&lt;style scoped&gt; div&#123; color:red; font-size:20px; border: 1px solid red; min-height: 100px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; brother2 receive: &#123;&#123;receiveData&#125;&#125; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import bus from './eventBus'; export default &#123; data:function () &#123; return &#123; receiveData:'', &#125; &#125;, mounted:function () &#123; bus.$on('busEvent', sendData=&gt;&#123; this.receiveData = sendData; &#125;) &#125; &#125;&lt;/script&gt; vuex实现brother1通过按钮触发事件，向brother2发送数据； 安装vuex 1npm install vuex --save vuex 配置 vuexStore.js 1234567891011121314151617const vuexStore = &#123; state:&#123; brother1Data:&#123;&#125;, &#125;, mutations:&#123; sendDataEvent(state, objData)&#123; state.brother1Data[objData.title] = objData.msg; &#125; &#125;, getters:&#123; brother1Data: state=&gt;&#123; return state.brother1Data; &#125; &#125;,&#125;;export default vuexStore; 入口文件引入vuex及配置 main.js 1234567891011121314import Vue from 'vue';import Vuex from 'vuex';import VuexStore from './vuexStore';Vue.use(Vuex);// vuexconst store = new Vuex.Store(VuexStore);new Vue(&#123; el: '#app', store:store, render: h =&gt; h(App)&#125;); 父组件代码 12345678910111213141516171819202122&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;brother1&gt;&lt;/brother1&gt; &lt;brother2&gt;&lt;/brother2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import brother1 from './brother1.vue'; import brother2 from './brother2.vue'; export default &#123; components:&#123; brother1, brother2, &#125;, &#125;&lt;/script&gt; brother1代码 123456789101112131415161718192021222324&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToBrother"&gt;sengDataToBrother&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data:function () &#123; return &#123; msg: 'i am brother1' &#125; &#125;, methods:&#123; sengDataToBrother:function () &#123; this.$store.commit('sendDataEvent', &#123;title:'brother1', msg:this.msg&#125;); &#125; &#125; &#125;&lt;/script&gt; brother2代码 1234567891011121314151617181920212223242526272829&lt;style scoped&gt; div&#123; color:red; font-size:20px; border: 1px solid red; min-height: 100px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="dataShow"&gt;dataShow&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; computed:&#123; receiveData()&#123; return this.$store.getters.brother1Data; &#125; &#125;, methods:&#123; dataShow:function () &#123; console.log(this.receiveData) &#125; &#125; &#125;&lt;/script&gt;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue.js</tag>
+        <tag>组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vue.js父子组件通信]]></title>
+    <url>%2F2017%2F12%2F10%2Fvue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
+    <content type="text"><![CDATA[父组件向子组件传递数据，是通过prop来实现；子组件向父组件传递数据，通过$emit来实现；下面实例是父子组件通信，在单文件组件中的实现 父组件向子组件传递数据父组件代码 12345678910111213141516171819202122232425262728&lt;style scoped&gt; div&#123; color:blue; font-size:40px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;child :msg="msg"&gt;&lt;/child&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import child from './child.vue'; export default &#123; components:&#123; child, &#125;, data:function () &#123; return &#123; msg:'hello world' &#125; &#125; &#125;&lt;/script&gt; 子组件代码 123456789101112131415161718&lt;style scoped&gt; .myclass&#123; border: 1px solid red; &#125;&lt;/style&gt;&lt;template&gt; &lt;div class="myclass"&gt; &lt;span style="color: red;"&gt;&#123;&#123;msg&#125;&#125;&lt;/span&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; props:['msg'], &#125;&lt;/script&gt; 子组件向父组件传递数据父组件代码 12345678910111213141516171819202122232425262728&lt;style scoped&gt; div&#123; color:blue; font-size:40px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;child @listenToChildEvent="childEvent"&gt;&lt;/child&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import child from './child.vue'; export default &#123; components:&#123; child, &#125;, methods:&#123; childEvent:function (childData) &#123; console.log(childData); &#125; &#125; &#125;&lt;/script&gt; 子组件代码 1234567891011121314151617181920212223&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToParent"&gt;sendDataToParent&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data:function () &#123; return &#123; childData: 'i am child' &#125; &#125;, methods:&#123; sengDataToParent:function () &#123; this.$emit('listenToChildEvent', this.childData) &#125; &#125; &#125;&lt;/script&gt;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue.js</tag>
+        <tag>组件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[语录]]></title>
+    <url>%2F2017%2F12%2F09%2F%E8%AF%AD%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[猎豹傅盛 人的根本差别在于认知，没有行动的认知是伪认知。所谓的成长就是认知的升级。 管理三段论–目标、路径、资源。找到一个目标，想清楚路径，再投入资源。前提是有判断力。 领导力核心是在大格局下对整个行业的认知体系，用大趋势做出正确的判断和聪明的决策 刘强东 所有的失败，最终都是人的失败]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>语录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Golang并行编程实践]]></title>
     <url>%2F2017%2F11%2F27%2FGolang%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5%2F</url>
     <content type="text"><![CDATA[Golang天然支持并行编程并且很轻量，利用goroutine和channel，可以很容易的开发出并行程序 Channel协程之间的通信，官方推荐是channel来实现的。在这里只说下，channel缓冲和无缓冲的区别 无缓冲：当向无缓冲的通道中写数据的时候，必须等到该数据被取出之后，才能再次写入 有缓冲：当向有缓冲的通道中写入数据的时候，除非当通道中数据量已经满了，否则可以一直写入；当通道数据满了之后，必须等到通道中的数据被消耗，才能再次向通道中写入数据 场景一假设现在我们需要同时处理若干任务，处理完成之后，再将结果汇总返回，比较注重任务的处理结果，代码实现如下: 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253package mainimport ( "log" "math/rand" "time")type ResData struct &#123; Status int Msg string TaskId int&#125;func main() &#123; mapTasks := map[int]string&#123;1: "任务1", 2: "任务2", 3: "任务3", 4: "任务4", 5: "任务5", 6: "任务6", 7: "任务7", 8: "任务8"&#125; taskNums := len(mapTasks) // 任务数量 chanTask := make(chan ResData, taskNums) // 新建缓冲数为任务量的通道 for taskId, task := range mapTasks &#123; go taskWorker(taskId, task, chanTask) // 利用goroutine起并行任务 &#125; for i := 1; i &lt;= taskNums; i++ &#123; // 等待任务处理结果 resTask := &lt;-chanTask log.Printf("%+v", resTask) if resTask.Status != 1 &#123; log.Println(resTask.Msg + "处理失败") // do something &#125; else &#123; log.Println(resTask.Msg + "咦~~~~, 处理成功") &#125; &#125;&#125;func taskWorker(taskId int, task string, chanTask chan&lt;- ResData) &#123; // 模拟处理任务，并产生一个随机结果 log.Println("开始处理任务：", task) time.Sleep(time.Second) res := rand.Intn(2) log.Println("任务：", task, "处理完成") if res == 1 &#123;// 处理成功 chanTask &lt;- ResData&#123;Status: 1, Msg: "success", TaskId: taskId&#125; &#125; else &#123; chanTask &lt;- ResData&#123;Status: 0, Msg: "fail", TaskId: taskId&#125; &#125;&#125; 场景二假设我们现在需要并行处理一些任务，但是并不是非常关心任务的处理结果，我们可以使用waitGroup来实现一种简单粗暴的并行处理, 代码如下： 123456789101112131415161718192021222324package mainimport "sync"func main()&#123; var wg sync.WaitGroup arrTasks := []string&#123;"任务1", "任务2", "任务3", "任务4"&#125; for _, task := range arrTasks &#123; wg.Add(1) go func(task string) &#123; defer wg.Done() go taskWorker1(task) &#125;(task) &#125; wg.Wait() // 等待所有任务结束&#125;func taskWorker1(task string) &#123; // do something&#125;]]></content>
@@ -114,13 +165,13 @@
     <content type="text"></content>
   </entry>
   <entry>
-    <title><![CDATA[关于我]]></title>
-    <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[标签]]></title>
     <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[关于我]]></title>
+    <url>%2Fabout%2Findex.html</url>
+    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
   </entry>
 </search>
