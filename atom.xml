@@ -5,9 +5,9 @@
   <subtitle>爱编程、爱分享</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://qingmang.site/"/>
+  <link href="http://yoursite.com/"/>
   <updated>2017-12-10T12:39:17.200Z</updated>
-  <id>http://qingmang.site/</id>
+  <id>http://yoursite.com/</id>
   
   <author>
     <name>轻芒</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>vue.js异步更新队列</title>
-    <link href="http://qingmang.site/2017/12/10/vue-js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97/"/>
-    <id>http://qingmang.site/2017/12/10/vue-js异步更新队列/</id>
+    <link href="http://yoursite.com/2017/12/10/vue-js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97/"/>
+    <id>http://yoursite.com/2017/12/10/vue-js异步更新队列/</id>
     <published>2017-12-10T11:12:14.000Z</published>
     <updated>2017-12-10T12:39:17.200Z</updated>
     
@@ -34,23 +34,23 @@
     
     </summary>
     
-      <category term="前端" scheme="http://qingmang.site/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="前端" scheme="http://qingmang.site/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="vue.js" scheme="http://qingmang.site/tags/vue-js/"/>
+      <category term="vue.js" scheme="http://yoursite.com/tags/vue-js/"/>
     
-      <category term="队列" scheme="http://qingmang.site/tags/%E9%98%9F%E5%88%97/"/>
+      <category term="队列" scheme="http://yoursite.com/tags/%E9%98%9F%E5%88%97/"/>
     
-      <category term="组件" scheme="http://qingmang.site/tags/%E7%BB%84%E4%BB%B6/"/>
+      <category term="组件" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>语录</title>
-    <link href="http://qingmang.site/2017/12/09/%E8%AF%AD%E5%BD%95/"/>
-    <id>http://qingmang.site/2017/12/09/语录/</id>
+    <link href="http://yoursite.com/2017/12/09/%E8%AF%AD%E5%BD%95/"/>
+    <id>http://yoursite.com/2017/12/09/语录/</id>
     <published>2017-12-09T07:12:43.000Z</published>
     <updated>2017-12-09T07:43:04.987Z</updated>
     
@@ -67,17 +67,17 @@
     
     </summary>
     
-      <category term="感悟" scheme="http://qingmang.site/categories/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="语录" scheme="http://qingmang.site/tags/%E8%AF%AD%E5%BD%95/"/>
+      <category term="语录" scheme="http://yoursite.com/tags/%E8%AF%AD%E5%BD%95/"/>
     
   </entry>
   
   <entry>
     <title>vue.js非父子组件通信</title>
-    <link href="http://qingmang.site/2017/12/08/vue-js%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
-    <id>http://qingmang.site/2017/12/08/vue-js非父子组件通信/</id>
+    <link href="http://yoursite.com/2017/12/08/vue-js%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
+    <id>http://yoursite.com/2017/12/08/vue-js非父子组件通信/</id>
     <published>2017-12-08T08:42:50.000Z</published>
     <updated>2017-12-10T11:31:36.931Z</updated>
     
@@ -95,21 +95,21 @@
     
     </summary>
     
-      <category term="前端" scheme="http://qingmang.site/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="前端" scheme="http://qingmang.site/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="vue.js" scheme="http://qingmang.site/tags/vue-js/"/>
+      <category term="vue.js" scheme="http://yoursite.com/tags/vue-js/"/>
     
-      <category term="组件" scheme="http://qingmang.site/tags/%E7%BB%84%E4%BB%B6/"/>
+      <category term="组件" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>vue.js父子组件通信</title>
-    <link href="http://qingmang.site/2017/12/08/vue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
-    <id>http://qingmang.site/2017/12/08/vue-js父子组件通信/</id>
+    <link href="http://yoursite.com/2017/12/08/vue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
+    <id>http://yoursite.com/2017/12/08/vue-js父子组件通信/</id>
     <published>2017-12-08T08:17:41.000Z</published>
     <updated>2017-12-10T11:31:03.670Z</updated>
     
@@ -125,21 +125,21 @@
     
     </summary>
     
-      <category term="前端" scheme="http://qingmang.site/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="前端" scheme="http://qingmang.site/tags/%E5%89%8D%E7%AB%AF/"/>
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="vue.js" scheme="http://qingmang.site/tags/vue-js/"/>
+      <category term="vue.js" scheme="http://yoursite.com/tags/vue-js/"/>
     
-      <category term="组件" scheme="http://qingmang.site/tags/%E7%BB%84%E4%BB%B6/"/>
+      <category term="组件" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6/"/>
     
   </entry>
   
   <entry>
     <title>Golang并行编程实践</title>
-    <link href="http://qingmang.site/2017/11/27/Golang%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://qingmang.site/2017/11/27/Golang并行编程实践/</id>
+    <link href="http://yoursite.com/2017/11/27/Golang%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://yoursite.com/2017/11/27/Golang并行编程实践/</id>
     <published>2017-11-27T12:34:22.000Z</published>
     <updated>2017-11-27T14:01:26.049Z</updated>
     
@@ -155,19 +155,19 @@
     
     </summary>
     
-      <category term="Golang" scheme="http://qingmang.site/categories/Golang/"/>
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
     
     
-      <category term="Golang" scheme="http://qingmang.site/tags/Golang/"/>
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
     
-      <category term="并行" scheme="http://qingmang.site/tags/%E5%B9%B6%E8%A1%8C/"/>
+      <category term="并行" scheme="http://yoursite.com/tags/%E5%B9%B6%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>58沈剑的《架构师之路》学习笔记</title>
-    <link href="http://qingmang.site/2017/11/05/58%E6%B2%88%E5%89%91%E7%9A%84%E3%80%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E4%B9%8B%E8%B7%AF%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://qingmang.site/2017/11/05/58沈剑的《架构师之路》学习笔记/</id>
+    <link href="http://yoursite.com/2017/11/05/58%E6%B2%88%E5%89%91%E7%9A%84%E3%80%8A%E6%9E%B6%E6%9E%84%E5%B8%88%E4%B9%8B%E8%B7%AF%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2017/11/05/58沈剑的《架构师之路》学习笔记/</id>
     <published>2017-11-05T08:59:37.000Z</published>
     <updated>2017-11-07T07:10:41.000Z</updated>
     
@@ -183,17 +183,17 @@
     
     </summary>
     
-      <category term="架构" scheme="http://qingmang.site/categories/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://yoursite.com/categories/%E6%9E%B6%E6%9E%84/"/>
     
     
-      <category term="架构" scheme="http://qingmang.site/tags/%E6%9E%B6%E6%9E%84/"/>
+      <category term="架构" scheme="http://yoursite.com/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
   <entry>
     <title>Nginx的rewrite配置</title>
-    <link href="http://qingmang.site/2017/11/03/Nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
-    <id>http://qingmang.site/2017/11/03/Nginx的rewrite配置/</id>
+    <link href="http://yoursite.com/2017/11/03/Nginx%E7%9A%84rewrite%E9%85%8D%E7%BD%AE/"/>
+    <id>http://yoursite.com/2017/11/03/Nginx的rewrite配置/</id>
     <published>2017-11-03T10:37:01.000Z</published>
     <updated>2017-11-07T07:17:40.000Z</updated>
     
@@ -209,19 +209,19 @@
     
     </summary>
     
-      <category term="Nginx" scheme="http://qingmang.site/categories/Nginx/"/>
+      <category term="Nginx" scheme="http://yoursite.com/categories/Nginx/"/>
     
     
-      <category term="Nginx" scheme="http://qingmang.site/tags/Nginx/"/>
+      <category term="Nginx" scheme="http://yoursite.com/tags/Nginx/"/>
     
-      <category term="rewrite" scheme="http://qingmang.site/tags/rewrite/"/>
+      <category term="rewrite" scheme="http://yoursite.com/tags/rewrite/"/>
     
   </entry>
   
   <entry>
     <title>ZooKeeper伪分布式集群搭建</title>
-    <link href="http://qingmang.site/2017/10/26/ZooKeeper%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
-    <id>http://qingmang.site/2017/10/26/ZooKeeper伪分布式集群搭建/</id>
+    <link href="http://yoursite.com/2017/10/26/ZooKeeper%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/"/>
+    <id>http://yoursite.com/2017/10/26/ZooKeeper伪分布式集群搭建/</id>
     <published>2017-10-26T11:32:09.000Z</published>
     <updated>2017-11-13T10:37:05.389Z</updated>
     
@@ -236,19 +236,19 @@
     
     </summary>
     
-      <category term="分布式" scheme="http://qingmang.site/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://yoursite.com/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="分布式" scheme="http://qingmang.site/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="http://yoursite.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
-      <category term="ZooKeeper" scheme="http://qingmang.site/tags/ZooKeeper/"/>
+      <category term="ZooKeeper" scheme="http://yoursite.com/tags/ZooKeeper/"/>
     
   </entry>
   
   <entry>
     <title>yii2 php多进程出现MySQL server has gone away</title>
-    <link href="http://qingmang.site/2017/08/09/Yii2-PHP%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%87%BA%E7%8E%B0MySQL-server-has-gone-away/"/>
-    <id>http://qingmang.site/2017/08/09/Yii2-PHP多进程出现MySQL-server-has-gone-away/</id>
+    <link href="http://yoursite.com/2017/08/09/Yii2-PHP%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%87%BA%E7%8E%B0MySQL-server-has-gone-away/"/>
+    <id>http://yoursite.com/2017/08/09/Yii2-PHP多进程出现MySQL-server-has-gone-away/</id>
     <published>2017-08-09T06:47:40.000Z</published>
     <updated>2017-11-13T10:36:23.723Z</updated>
     
@@ -263,23 +263,23 @@
     
     </summary>
     
-      <category term="PHP" scheme="http://qingmang.site/categories/PHP/"/>
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
     
     
-      <category term="多进程" scheme="http://qingmang.site/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
+      <category term="多进程" scheme="http://yoursite.com/tags/%E5%A4%9A%E8%BF%9B%E7%A8%8B/"/>
     
-      <category term="PHP" scheme="http://qingmang.site/tags/PHP/"/>
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
     
-      <category term="Yii2" scheme="http://qingmang.site/tags/Yii2/"/>
+      <category term="Yii2" scheme="http://yoursite.com/tags/Yii2/"/>
     
-      <category term="MySql" scheme="http://qingmang.site/tags/MySql/"/>
+      <category term="MySql" scheme="http://yoursite.com/tags/MySql/"/>
     
   </entry>
   
   <entry>
     <title>正则表达式基础</title>
-    <link href="http://qingmang.site/2016/08/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/"/>
-    <id>http://qingmang.site/2016/08/06/正则表达式基础/</id>
+    <link href="http://yoursite.com/2016/08/06/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2016/08/06/正则表达式基础/</id>
     <published>2016-08-06T11:00:25.000Z</published>
     <updated>2017-11-07T07:20:58.000Z</updated>
     
@@ -297,17 +297,17 @@
     
     </summary>
     
-      <category term="杂项" scheme="http://qingmang.site/categories/%E6%9D%82%E9%A1%B9/"/>
+      <category term="杂项" scheme="http://yoursite.com/categories/%E6%9D%82%E9%A1%B9/"/>
     
     
-      <category term="正则表达式" scheme="http://qingmang.site/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+      <category term="正则表达式" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
     <title>关于编程</title>
-    <link href="http://qingmang.site/2016/08/05/%E5%85%B3%E4%BA%8E%E7%BC%96%E7%A8%8B/"/>
-    <id>http://qingmang.site/2016/08/05/关于编程/</id>
+    <link href="http://yoursite.com/2016/08/05/%E5%85%B3%E4%BA%8E%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/2016/08/05/关于编程/</id>
     <published>2016-08-05T07:21:09.000Z</published>
     <updated>2017-11-27T14:13:18.226Z</updated>
     
@@ -327,19 +327,19 @@
     
     </summary>
     
-      <category term="感悟" scheme="http://qingmang.site/categories/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟" scheme="http://qingmang.site/tags/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F/"/>
     
-      <category term="编程人生" scheme="http://qingmang.site/tags/%E7%BC%96%E7%A8%8B%E4%BA%BA%E7%94%9F/"/>
+      <category term="编程人生" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A8%8B%E4%BA%BA%E7%94%9F/"/>
     
   </entry>
   
   <entry>
     <title>《浪潮之巅》读后小结</title>
-    <link href="http://qingmang.site/2016/07/07/%E3%80%8A%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85%E3%80%8B%E8%AF%BB%E5%90%8E%E5%B0%8F%E7%BB%93/"/>
-    <id>http://qingmang.site/2016/07/07/《浪潮之巅》读后小结/</id>
+    <link href="http://yoursite.com/2016/07/07/%E3%80%8A%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85%E3%80%8B%E8%AF%BB%E5%90%8E%E5%B0%8F%E7%BB%93/"/>
+    <id>http://yoursite.com/2016/07/07/《浪潮之巅》读后小结/</id>
     <published>2016-07-07T03:51:14.000Z</published>
     <updated>2017-11-09T05:04:35.000Z</updated>
     
@@ -355,19 +355,19 @@
     
     </summary>
     
-      <category term="读书" scheme="http://qingmang.site/categories/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="http://yoursite.com/categories/%E8%AF%BB%E4%B9%A6/"/>
     
     
-      <category term="浪潮之巅" scheme="http://qingmang.site/tags/%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85/"/>
+      <category term="浪潮之巅" scheme="http://yoursite.com/tags/%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85/"/>
     
-      <category term="读书" scheme="http://qingmang.site/tags/%E8%AF%BB%E4%B9%A6/"/>
+      <category term="读书" scheme="http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/"/>
     
   </entry>
   
   <entry>
     <title>关于职场</title>
-    <link href="http://qingmang.site/2016/07/01/%E5%85%B3%E4%BA%8E%E8%81%8C%E5%9C%BA/"/>
-    <id>http://qingmang.site/2016/07/01/关于职场/</id>
+    <link href="http://yoursite.com/2016/07/01/%E5%85%B3%E4%BA%8E%E8%81%8C%E5%9C%BA/"/>
+    <id>http://yoursite.com/2016/07/01/关于职场/</id>
     <published>2016-07-01T07:25:27.000Z</published>
     <updated>2017-11-07T11:58:50.000Z</updated>
     
@@ -385,12 +385,12 @@
     
     </summary>
     
-      <category term="感悟" scheme="http://qingmang.site/categories/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/categories/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟" scheme="http://qingmang.site/tags/%E6%84%9F%E6%82%9F/"/>
+      <category term="感悟" scheme="http://yoursite.com/tags/%E6%84%9F%E6%82%9F/"/>
     
-      <category term="职场生涯" scheme="http://qingmang.site/tags/%E8%81%8C%E5%9C%BA%E7%94%9F%E6%B6%AF/"/>
+      <category term="职场生涯" scheme="http://yoursite.com/tags/%E8%81%8C%E5%9C%BA%E7%94%9F%E6%B6%AF/"/>
     
   </entry>
   
