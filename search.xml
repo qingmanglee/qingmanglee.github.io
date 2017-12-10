@@ -15,8 +15,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[语录]]></title>
+    <url>%2F2017%2F12%2F09%2F%E8%AF%AD%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[猎豹傅盛 人的根本差别在于认知，没有行动的认知是伪认知。所谓的成长就是认知的升级。 管理三段论–目标、路径、资源。找到一个目标，想清楚路径，再投入资源。前提是有判断力。 领导力核心是在大格局下对整个行业的认知体系，用大趋势做出正确的判断和聪明的决策 刘强东 所有的失败，最终都是人的失败]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>语录</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue.js非父子组件通信]]></title>
-    <url>%2F2017%2F12%2F10%2Fvue-js%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
+    <url>%2F2017%2F12%2F08%2Fvue-js%E9%9D%9E%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
     <content type="text"><![CDATA[上一篇已经写了父子组件通信的具体实践，但在时间开发中，非父子组件间的通信相对较为复杂。常见的解决方案： 是通过new一个空的Vue实例，来作为事件总线，这种方式对于大部分的情况都是可以解决的。 如果需要更为复杂的状态管理，这个时候引入vuex来实现，更为方便快捷 空Vue实例实现brother1通过按钮触发事件，向brother2发送数据； 父组件代码 12345678910111213141516171819202122&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;brother1&gt;&lt;/brother1&gt; &lt;brother2&gt;&lt;/brother2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import brother1 from './brother1.vue'; import brother2 from './brother2.vue'; export default &#123; components:&#123; brother1, brother2, &#125;, &#125;&lt;/script&gt; brother1组件代码 12345678910111213141516171819202122232425&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToBrother"&gt;sengDataToBrother&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import bus from './eventBus'; export default &#123; data:function () &#123; return &#123; msg: 'i am brother1' &#125; &#125;, methods:&#123; sengDataToBrother:function () &#123; bus.$emit('busEvent',this.msg); &#125; &#125; &#125;&lt;/script&gt; brother2组件代码 12345678910111213141516171819202122232425262728293031&lt;style scoped&gt; div&#123; color:red; font-size:20px; border: 1px solid red; min-height: 100px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; brother2 receive: &#123;&#123;receiveData&#125;&#125; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import bus from './eventBus'; export default &#123; data:function () &#123; return &#123; receiveData:'', &#125; &#125;, mounted:function () &#123; bus.$on('busEvent', sendData=&gt;&#123; this.receiveData = sendData; &#125;) &#125; &#125;&lt;/script&gt; vuex实现brother1通过按钮触发事件，向brother2发送数据； 安装vuex 1npm install vuex --save vuex 配置 vuexStore.js 1234567891011121314151617const vuexStore = &#123; state:&#123; brother1Data:&#123;&#125;, &#125;, mutations:&#123; sendDataEvent(state, objData)&#123; state.brother1Data[objData.title] = objData.msg; &#125; &#125;, getters:&#123; brother1Data: state=&gt;&#123; return state.brother1Data; &#125; &#125;,&#125;;export default vuexStore; 入口文件引入vuex及配置 main.js 1234567891011121314import Vue from 'vue';import Vuex from 'vuex';import VuexStore from './vuexStore';Vue.use(Vuex);// vuexconst store = new Vuex.Store(VuexStore);new Vue(&#123; el: '#app', store:store, render: h =&gt; h(App)&#125;); 父组件代码 12345678910111213141516171819202122&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;brother1&gt;&lt;/brother1&gt; &lt;brother2&gt;&lt;/brother2&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import brother1 from './brother1.vue'; import brother2 from './brother2.vue'; export default &#123; components:&#123; brother1, brother2, &#125;, &#125;&lt;/script&gt; brother1代码 123456789101112131415161718192021222324&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToBrother"&gt;sengDataToBrother&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data:function () &#123; return &#123; msg: 'i am brother1' &#125; &#125;, methods:&#123; sengDataToBrother:function () &#123; this.$store.commit('sendDataEvent', &#123;title:'brother1', msg:this.msg&#125;); &#125; &#125; &#125;&lt;/script&gt; brother2代码 1234567891011121314151617181920212223242526272829&lt;style scoped&gt; div&#123; color:red; font-size:20px; border: 1px solid red; min-height: 100px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="dataShow"&gt;dataShow&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; computed:&#123; receiveData()&#123; return this.$store.getters.brother1Data; &#125; &#125;, methods:&#123; dataShow:function () &#123; console.log(this.receiveData) &#125; &#125; &#125;&lt;/script&gt;]]></content>
       <categories>
         <category>前端</category>
@@ -29,7 +40,7 @@
   </entry>
   <entry>
     <title><![CDATA[vue.js父子组件通信]]></title>
-    <url>%2F2017%2F12%2F10%2Fvue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
+    <url>%2F2017%2F12%2F08%2Fvue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1%2F</url>
     <content type="text"><![CDATA[父组件向子组件传递数据，是通过prop来实现；子组件向父组件传递数据，通过$emit来实现；下面实例是父子组件通信，在单文件组件中的实现 父组件向子组件传递数据父组件代码 12345678910111213141516171819202122232425262728&lt;style scoped&gt; div&#123; color:blue; font-size:40px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;child :msg="msg"&gt;&lt;/child&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import child from './child.vue'; export default &#123; components:&#123; child, &#125;, data:function () &#123; return &#123; msg:'hello world' &#125; &#125; &#125;&lt;/script&gt; 子组件代码 123456789101112131415161718&lt;style scoped&gt; .myclass&#123; border: 1px solid red; &#125;&lt;/style&gt;&lt;template&gt; &lt;div class="myclass"&gt; &lt;span style="color: red;"&gt;&#123;&#123;msg&#125;&#125;&lt;/span&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; props:['msg'], &#125;&lt;/script&gt; 子组件向父组件传递数据父组件代码 12345678910111213141516171819202122232425262728&lt;style scoped&gt; div&#123; color:blue; font-size:40px; &#125;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;child @listenToChildEvent="childEvent"&gt;&lt;/child&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; import child from './child.vue'; export default &#123; components:&#123; child, &#125;, methods:&#123; childEvent:function (childData) &#123; console.log(childData); &#125; &#125; &#125;&lt;/script&gt; 子组件代码 1234567891011121314151617181920212223&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;button @click="sengDataToParent"&gt;sendDataToParent&lt;/button&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; data:function () &#123; return &#123; childData: 'i am child' &#125; &#125;, methods:&#123; sengDataToParent:function () &#123; this.$emit('listenToChildEvent', this.childData) &#125; &#125; &#125;&lt;/script&gt;]]></content>
       <categories>
         <category>前端</category>
@@ -38,17 +49,6 @@
         <tag>前端</tag>
         <tag>vue.js</tag>
         <tag>组件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[语录]]></title>
-    <url>%2F2017%2F12%2F09%2F%E8%AF%AD%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[猎豹傅盛 人的根本差别在于认知，没有行动的认知是伪认知。所谓的成长就是认知的升级。 管理三段论–目标、路径、资源。找到一个目标，想清楚路径，再投入资源。前提是有判断力。 领导力核心是在大格局下对整个行业的认知体系，用大趋势做出正确的判断和聪明的决策 刘强东 所有的失败，最终都是人的失败]]></content>
-      <categories>
-        <category>感悟</category>
-      </categories>
-      <tags>
-        <tag>语录</tag>
       </tags>
   </entry>
   <entry>
@@ -160,6 +160,11 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[关于我]]></title>
+    <url>%2Fabout%2Findex.html</url>
+    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[分类]]></title>
     <url>%2Fcategories%2Findex.html</url>
     <content type="text"></content>
@@ -168,10 +173,5 @@
     <title><![CDATA[标签]]></title>
     <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
-  </entry>
-  <entry>
-    <title><![CDATA[关于我]]></title>
-    <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
   </entry>
 </search>
