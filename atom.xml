@@ -41,9 +41,9 @@
     
       <category term="vue.js" scheme="http://yoursite.com/tags/vue-js/"/>
     
-      <category term="队列" scheme="http://yoursite.com/tags/%E9%98%9F%E5%88%97/"/>
-    
       <category term="组件" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6/"/>
+    
+      <category term="队列" scheme="http://yoursite.com/tags/%E9%98%9F%E5%88%97/"/>
     
   </entry>
   
