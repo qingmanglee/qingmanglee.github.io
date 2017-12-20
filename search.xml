@@ -10,14 +10,14 @@
       <tags>
         <tag>前端</tag>
         <tag>vue.js</tag>
-        <tag>组件</tag>
         <tag>队列</tag>
+        <tag>组件</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[语录]]></title>
     <url>%2F2017%2F12%2F09%2F%E8%AF%AD%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[猎豹傅盛 人的根本差别在于认知，没有行动的认知是伪认知。所谓的成长就是认知的升级。 管理三段论–目标、路径、资源。找到一个目标，想清楚路径，再投入资源。前提是有判断力。 领导力核心是在大格局下对整个行业的认知体系，用大趋势做出正确的判断和聪明的决策 刘强东 所有的失败，最终都是人的失败]]></content>
+    <content type="text"><![CDATA[猎豹傅盛 人的根本差别在于认知，没有行动的认知是伪认知。所谓的成长就是认知的升级。 管理三段论–目标、路径、资源。找到一个目标，想清楚路径，再投入资源。前提是有判断力。 领导力核心是在大格局下对整个行业的认知体系，用大趋势做出正确的判断和聪明的决策 刘强东 所有的失败，最终都是人的失败 马云 对于新事物，绝大部分人，第一看不见、第二看不起、第三看不懂、第四来不及]]></content>
       <categories>
         <category>感悟</category>
       </categories>
@@ -162,7 +162,7 @@
   <entry>
     <title><![CDATA[关于]]></title>
     <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[&emsp;&emsp;本博客主要是将平时工作遇到的问题进行总结整理，便于自己以后遇到类似的问题翻阅，没有太多理论，注重实用性。 关于我&emsp;&emsp;花名轻芒，是一个崇尚简单、喜爱编程、追求极致的人。大学时期利用业余时间主要在学习lnmp相关技术，开发过几个网站，拿过几个证书，也从此踏上了程序员之路 工作&emsp;&emsp;目前就职于高德地图，各种打杂 技能&emsp;&emsp;对各种编程语言、各种系统都有兴趣，玩过PHP、Golang、Python等，略懂前端 联系&emsp;&emsp;欢迎指正博客中存在的各种问题，邮箱：1060687053@qq.com]]></content>
+    <content type="text"><![CDATA[&emsp;&emsp;本博客主要是将平时工作遇到的问题进行总结整理，便于自己以后翻阅。]]></content>
   </entry>
   <entry>
     <title><![CDATA[分类]]></title>

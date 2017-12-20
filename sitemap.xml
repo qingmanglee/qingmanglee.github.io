@@ -4,7 +4,14 @@
   <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
-    <lastmod>2017-12-11T03:51:49.461Z</lastmod>
+    <lastmod>2017-12-20T10:09:26.811Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/12/09/%E8%AF%AD%E5%BD%95/</loc>
+    
+    <lastmod>2017-12-18T03:58:35.132Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>http://yoursite.com/2017/12/08/vue-js%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</loc>
     
     <lastmod>2017-12-10T11:31:03.670Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/12/09/%E8%AF%AD%E5%BD%95/</loc>
-    
-    <lastmod>2017-12-09T07:43:04.987Z</lastmod>
     
   </url>
   
