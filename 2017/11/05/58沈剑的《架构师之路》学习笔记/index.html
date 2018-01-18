@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="轻芒的博客">
 <meta property="og:description" content="前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移来实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-07T07:10:41.000Z">
+<meta property="og:updated_time" content="2018-01-18T08:01:31.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="58沈剑的《架构师之路》学习笔记">
 <meta name="twitter:description" content="前段时间关注了58沈剑大牛的“架构师之路”的微信公众号，之前一直没时间认真拜读，现打算利用周末的时间学习一下，做一些笔记。本篇内容全部来自《架构师之路》，我只是在此摘抄记录一些知识点。感谢沈剑大牛的分享。 高可用架构高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。 方法论上，高可用是通过冗余+自动故障转移来实">
@@ -440,6 +440,52 @@
 <li>结论：N核服务器，通过执行业务的单线程分析出本地计算时间为x，等待时间为y，则工作线程数（线程池线程数）设置为 N*(x+y)/x，能让CPU的利用率最大化。</li>
 <li>经验：一般来说，非CPU密集型的业务（加解密、压缩解压缩、搜索排序等业务是CPU密集型的业务），瓶颈都在后端数据库，本地CPU计算的时间很少，所以设置几十或者几百个工作线程也都是可能的。</li>
 </ul>
+<h3 id="系统解耦"><a href="#系统解耦" class="headerlink" title="系统解耦"></a>系统解耦</h3><ol>
+<li>MQ</li>
+<li>配置中心(ConfCenter)<ol>
+<li>所有通用配置，基础配置将由配置中心统一维护，数据只存储一份，不再有“配置私藏”</li>
+<li>所有上游通过配置中心来订阅下游配置</li>
+<li>有下游的配置变更，例如扩容时，通过配置中心统一修改</li>
+<li>配置中心将变更后的配置通知所有上游订阅方</li>
+<li>订阅方得知下游服务扩容或者缩容后，通过动态连接池，自动新增或者销毁连接，实现自动扩容与缩容，大部分服务发现都是这么做的</li>
+</ol>
+</li>
+<li>总结<ol>
+<li>“配置私藏”导致的耦合，本质是由一份配置数据的冗余引起的。</li>
+<li>配置中心对于“配置私藏”的上下游解耦非常有效。</li>
+<li>MQ和ConfCenter是常见的互联网架构解耦利器：</li>
+<li>前者，逻辑解耦，物理解耦；后者，逻辑解耦，物理不解耦</li>
+</ol>
+</li>
+</ol>
+<h3 id="高并发常见应对方案"><a href="#高并发常见应对方案" class="headerlink" title="高并发常见应对方案"></a>高并发常见应对方案</h3><ul>
+<li>数据库缓存<ol>
+<li>缓存数据是为了让客户端很少甚至不访问数据库，减少磁盘IO，提高并发量，提高应用数据的响应速度。</li>
+</ol>
+</li>
+<li>CDN加速<ol>
+<li>什么是CDN？<ul>
+<li>CDN的全称是Content Delivery Network，CDN系统能够实时地根据网络流量和各节点的连接、负载状况以及到用户的距离等综合信息将用户的请求重新导向离用户最近的服务节点上。</li>
+</ul>
+</li>
+<li>使用CDN的优势？<ul>
+<li>CDN的本质是内存缓存，就近访问，它提高了企业站点(尤其含有大量图片和静态页面站点)的访问速度，跨运营商的网络加速，保证不同网络的用户都得到良好的访问质量。<br>同时，减少远程访问的带宽，分担网络流量，减轻原站点WEB服务器负载。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>服务器的集群化，以及负载均衡<ol>
+<li>什么是七层负载均衡？<ul>
+<li>七层负载均衡，是基于http协议等应用信息的负载均衡，最常用的就是Nginx，它能够自动剔除工作不正常的后端服务器，上传文件使用异步模式，支持多种分配策略，可以分配权重，分配方式灵活。<br>内置策略：IP Hash、加权轮询<br>扩展策略：fair策略、通用hash、一致性hash</li>
+</ul>
+</li>
+<li>什么是加权轮询策略？<ul>
+<li>首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器，即体现了加权权重，又体现了轮询。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
@@ -616,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">1.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">4.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#高可用架构"><span class="nav-number">1.</span> <span class="nav-text">高可用架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程数究竟设多少合理"><span class="nav-number">4.</span> <span class="nav-text">线程数究竟设多少合理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统解耦"><span class="nav-number">5.</span> <span class="nav-text">系统解耦</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高并发常见应对方案"><span class="nav-number">6.</span> <span class="nav-text">高并发常见应对方案</span></a></li></ol></div>
             
 
           </div>
@@ -638,8 +684,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
