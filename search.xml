@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[基于双向链表实现的多任务队列]]></title>
+    <url>%2F2018%2F06%2F29%2F%E5%9F%BA%E4%BA%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%A4%9A%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97%2F</url>
+    <content type="text"><![CDATA[背景公司传送门平台后端基于单队列实现，经常出现任务阻塞，并且不支持多任务的并行执行，数据发布效率不高。 解决自己基于Golang内置的container/list实现一个并发安全的多任务队列。 Talk is cheap，show me the code! 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181// Package queue 基于双向链表实现并发安全的多任务队列package queueimport ( "errors" "sync" "container/list" "strconv")type ( ListMultiQueue struct &#123; Lists map[string]*pList sync.RWMutex &#125; pList struct &#123; list *list.List buffer int sync.RWMutex &#125;)func newPList(buffer int) *pList &#123; return &amp;pList&#123; list: list.New(), buffer: buffer, // 如果 buffer &lt;=0, 队列的长度则没有限制 &#125;&#125;func NewListMultiQueue() *ListMultiQueue &#123; return &amp;ListMultiQueue&#123; Lists: make(map[string]*pList), &#125;&#125;// Enqueue 通过mode参数，支持头部和尾部两种插入方式，头部插入主要是解决业务场景下一些紧急干预的任务func (q *ListMultiQueue) Enqueue(queueName string, mode string, anyData interface&#123;&#125;) error &#123; switch anyData.(type) &#123; case string: if len(anyData.(string)) &lt;= 0 &#123; return errors.New("Enqueue failure, anyData is empty, QueueName: " + queueName + " Mode: " + mode) &#125; &#125; l, err := q.getList(queueName) if err != nil &#123; return err &#125; l.Lock() defer l.Unlock() if l.buffer &gt; 0 &amp;&amp; l.list.Len() &gt;= l.buffer &#123; return errors.New("Enqueue failure, The queue is full, QueueName: " + queueName + " Mode: " + mode + " Size: " + strconv.Itoa(l.list.Len()) + " Buffer: " + strconv.Itoa(l.buffer)) &#125; switch mode &#123; case "back": l.list.PushBack(anyData) case "front": l.list.PushFront(anyData) default: return errors.New("Enqueue failure, mode is not supported, QueueName: " + queueName + " Mode: " + mode) &#125; return nil&#125;// Dequeuefunc (q *ListMultiQueue) Dequeue(queueName string) (interface&#123;&#125;, error) &#123; l, err := q.getList(queueName) if err != nil &#123; return nil, err &#125; l.Lock() defer l.Unlock() if e := l.list.Front(); e != nil &#123; v := e.Value l.list.Remove(e) return v, nil &#125; return nil, nil&#125;// DeleteQueuefunc (q *ListMultiQueue) DeleteQueue(queueName string) error &#123; q.Lock() defer q.Unlock() l, ok := q.Lists[queueName] if !ok &#123; return errors.New("Delete failure, Not found queue, QueueName: " + queueName) &#125; l.Lock() if l.list.Len() &gt; 0 &#123; return errors.New("Delete failure, The queue is not empty, QueueName: " + queueName) &#125; l.Unlock() delete(q.Lists, queueName) return nil&#125;// ClearQueuefunc (q *ListMultiQueue) ClearQueue(queueName string) error &#123; l, err := q.getList(queueName) if err != nil &#123; return err &#125; l.Lock() defer l.Unlock() l.list.Init() return nil&#125;// CreateQueue 如果 buffer &lt;=0, 则队列长度没有限制func (q *ListMultiQueue) CreateQueue(queueName string, buffer int) error &#123; q.Lock() defer q.Unlock() if _, ok := q.Lists[queueName]; ok &#123; return errors.New("Create failure, Queue already exist, QueueName: " + queueName) &#125; q.Lists[queueName] = newPList(buffer) return nil&#125;// Lengthfunc (q *ListMultiQueue) Length(queueName string) (int, error) &#123; pList, err := q.getList(queueName) if err != nil &#123; return 0, err &#125; l := pList.list pList.RLock() defer pList.RUnlock() return l.Len(), nil&#125;// Bufferfunc (q *ListMultiQueue) Buffer(queueName string) (int, error) &#123; pList, err := q.getList(queueName) if err != nil &#123; return 0, err &#125; return pList.buffer, nil&#125;func (q *ListMultiQueue) getList(queueName string) (*pList, error) &#123; q.RLock() defer q.RUnlock() l, ok := q.Lists[queueName] if !ok &#123; return nil, errors.New("Get queue failure, Not found queue, QueueName: " + queueName) &#125; return l, nil&#125;]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+        <tag>多任务队列</tag>
+        <tag>并发编程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vue.js异步更新队列]]></title>
     <url>%2F2017%2F12%2F10%2Fvue-js%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97%2F</url>
     <content type="text"><![CDATA[在做项目的时候，发现需要在更新数据之后，组件不会立马被渲染。而我们的需求是需要在组件数据发生变化后，等待dom更新，然后再次更新组件的状态。认真的扒了扒官方文档，其实官方给出了解决方案，具体就是通过nextTick来实现。官方文档 场景&amp;实现1234567891011121314151617181920212223242526&lt;style scoped&gt;&lt;/style&gt;&lt;template&gt; &lt;div&gt; &lt;/div&gt;&lt;/template&gt;&lt;script&gt; export default &#123; watch: &#123; watchData: function (updateData) &#123; this.doSomethingAfterDomUpdate(); &#125; &#125;, methods:&#123; doSomethingAfterDomUpdate:function () &#123; this.$nextTick(function () &#123; // do something &#125;) &#125;, &#125; &#125; &lt;/script&gt;]]></content>
@@ -10,8 +23,8 @@
       <tags>
         <tag>前端</tag>
         <tag>vue.js</tag>
-        <tag>队列</tag>
         <tag>组件</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>
@@ -160,18 +173,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[标签]]></title>
+    <url>%2Ftags%2Findex.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[关于]]></title>
     <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[&emsp;&emsp;本博客主要是将平时工作遇到的问题进行总结整理。]]></content>
+    <content type="text"><![CDATA[。。。写点啥？。。。。]]></content>
   </entry>
   <entry>
     <title><![CDATA[分类]]></title>
     <url>%2Fcategories%2Findex.html</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
-    <title><![CDATA[标签]]></title>
-    <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
   </entry>
 </search>
