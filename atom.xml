@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-06-29T12:30:38.132Z</updated>
+  <updated>2018-06-29T14:01:34.795Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>好用的Golang代码片段</title>
+    <link href="http://yoursite.com/2018/06/29/%E5%A5%BD%E7%94%A8%E7%9A%84Golang%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/"/>
+    <id>http://yoursite.com/2018/06/29/好用的Golang代码片段/</id>
+    <published>2018-06-29T13:21:23.000Z</published>
+    <updated>2018-06-29T14:01:34.795Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>日常工作中收集的好用的代码片段，记录下，方便日后开发</p><h3 id="Show-me-the-code"><a href="#Show-me-the-code" class="headerlink" title="Show me the code"></a>Show me the code</h3><h4 id="正确关闭channel-参考"><a href="#正确关闭channel-参考" class="headerlink" title="正确关闭channel 参考"></a>正确关闭channel <a href="https://go101.org/article/channel-closing.html" target="_blank" rel="external">参考</a></h4><p>假如我们关闭一个已经关闭的channel的话，会发生panic，这是很危险的</p><p>粗暴方式</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SafeClose</span><span class="params">(ch <span class="keyword">chan</span> T)</span> <span class="params">(justClosed <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line"><span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">recover</span>() != <span class="literal">nil</span> &#123;</span><br><span class="line"><span class="comment">// The return result can be altered</span></span><br><span class="line"><span class="comment">// in a defer function call.</span></span><br><span class="line">justClosed = <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="comment">// assume ch != nil here.</span></span><br><span class="line"><span class="built_in">close</span>(ch)   <span class="comment">// panic if ch is closed</span></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span> <span class="comment">// &lt;=&gt; justClosed = true; return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>自己喜欢的方式</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyChannel <span class="keyword">struct</span> &#123;</span><br><span class="line">C    <span class="keyword">chan</span> T</span><br><span class="line">once sync.Once</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMyChannel</span><span class="params">()</span> *<span class="title">MyChannel</span></span> &#123;</span><br><span class="line"><span class="keyword">return</span> &amp;MyChannel&#123;C: <span class="built_in">make</span>(<span class="keyword">chan</span> T)&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(mc *MyChannel)</span> <span class="title">SafeClose</span><span class="params">()</span></span> &#123;</span><br><span class="line">mc.once.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="built_in">close</span>(mc.C)</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;日常工作中收集的好用的代码片段，记录下，方便日后开发&lt;/p&gt;
+&lt;h3 id=&quot;Show-me-the-code&quot;&gt;&lt;a href=&quot;#Sho
+      
+    
+    </summary>
+    
+      <category term="Golang" scheme="http://yoursite.com/categories/Golang/"/>
+    
+    
+      <category term="Golang" scheme="http://yoursite.com/tags/Golang/"/>
+    
+      <category term="代码片段" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/"/>
+    
+  </entry>
   
   <entry>
     <title>基于双向链表实现的多任务队列</title>
