@@ -311,6 +311,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/ZooKeeper伪分布式集群搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="轻芒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="轻芒的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/26/ZooKeeper伪分布式集群搭建/" itemprop="url">ZooKeeper伪分布式集群搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T19:32:09+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/分布式/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://zh.wikipedia.org/wiki/Apache_ZooKeeper" target="_blank" rel="external">ZooKeeper</a>是一个分布式的，开放源码的分布式应用程序协调服务，<a href="https://zookeeper.apache.org/" target="_blank" rel="external">参见官网</a>。典型应用场景，如目录服务、配置管理、同步、集群节点选举、消息队列、通知系统等。本文演示搭建一个单机三个实例的伪分布集群。</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p>下载并解压zookeeper。创建三个目录，分别为这三个实例的目录环境，并在三个目录中创建内容分别为1，2，3的名称为myid文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$tree zoo1/ zoo2/ zoo3</span><br><span class="line">zoo1/</span><br><span class="line">└── myid</span><br><span class="line">zoo2/</span><br><span class="line">└── myid</span><br><span class="line">zoo3</span><br><span class="line">└── myid</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>在zookeeper的配置目录下，分别创建三个名为zoo1.cfg、zoo2.cfg、zoo3.cfg的配置文件。<br>以server.1=10.101.80.35:9110:9210为例，1为对应实例myid内容编号，10.101.80.35为ip，9110为Leader选举的端口，9210为zookeeper实例之间通信的端口，因搭建的伪分布式集群，所以端口各不相同，真实的分布式集群，三个实例的端口通常相同。</p>
+<p>内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">zoo1.cfg</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/home/admin/zookeeper/zoo1</span><br><span class="line">clientPort=2181</span><br><span class="line">server.1=10.101.80.35:9110:9210</span><br><span class="line">server.2=10.101.80.35:9111:9211</span><br><span class="line">server.3=10.101.80.35:9112:9212</span><br><span class="line"></span><br><span class="line">zoo2.cfg</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/home/admin/zookeeper/zoo2</span><br><span class="line">clientPort=2182</span><br><span class="line">server.1=10.101.80.35:9110:9210</span><br><span class="line">server.2=10.101.80.35:9111:9211</span><br><span class="line">server.3=10.101.80.35:9112:9212</span><br><span class="line"></span><br><span class="line">zoo3.cfg</span><br><span class="line"></span><br><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/home/admin/zookeeper/zoo3</span><br><span class="line">clientPort=2183</span><br><span class="line">server.1=10.101.80.35:9110:9210</span><br><span class="line">server.2=10.101.80.35:9111:9211</span><br><span class="line">server.3=10.101.80.35:9112:9212</span><br></pre></td></tr></table></figure>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cd  /home/admin/zookeeper/zookeeper-3.4.10</span><br><span class="line"></span><br><span class="line">./bin/zkServer.sh  start ./conf/zoo1.cfg</span><br><span class="line">./bin/zkServer.sh  start ./conf/zoo2.cfg</span><br><span class="line">./bin/zkServer.sh  start ./conf/zoo3.cfg</span><br><span class="line"></span><br><span class="line">#查看状态</span><br><span class="line">$./bin/zkServer.sh  status ./conf/zoo1.cfg</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: ./conf/zoo1.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+<h3 id="命令行操作"><a href="#命令行操作" class="headerlink" title="命令行操作"></a>命令行操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#进入集群</span><br><span class="line">./bin/zkCli.sh -server 10.101.80.35:2182</span><br><span class="line"></span><br><span class="line">#创建节点</span><br><span class="line">[zk: 10.101.80.35:2182(CONNECTED) 3] create /mynode test</span><br><span class="line">Created /mynode</span><br><span class="line">[zk: 10.101.80.35:2182(CONNECTED) 4] ls /</span><br><span class="line">[mynode, zookeeper]</span><br><span class="line"></span><br><span class="line">#查看所有节点</span><br><span class="line">[zk: 10.101.80.35:2182(CONNECTED) 7] ls /</span><br><span class="line">[mynode, zookeeper]</span><br><span class="line"></span><br><span class="line">#查看指定节点</span><br><span class="line">[zk: 10.101.80.35:2182(CONNECTED) 5] get /mynode</span><br><span class="line">test</span><br><span class="line">cZxid = 0x100000004</span><br><span class="line">ctime = Thu Oct 26 20:38:29 CST 2017</span><br><span class="line">mZxid = 0x100000004</span><br><span class="line">mtime = Thu Oct 26 20:38:29 CST 2017</span><br><span class="line">pZxid = 0x100000004</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 0</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4</span><br><span class="line">numChildren = 0</span><br><span class="line"></span><br><span class="line">#更新节点内容</span><br><span class="line">[zk: 10.101.80.35:2182(CONNECTED) 8] set /mynode haha</span><br><span class="line">cZxid = 0x100000004</span><br><span class="line">ctime = Thu Oct 26 20:38:29 CST 2017</span><br><span class="line">mZxid = 0x100000005</span><br><span class="line">mtime = Thu Oct 26 20:43:40 CST 2017</span><br><span class="line">pZxid = 0x100000004</span><br><span class="line">cversion = 0</span><br><span class="line">dataVersion = 1</span><br><span class="line">aclVersion = 0</span><br><span class="line">ephemeralOwner = 0x0</span><br><span class="line">dataLength = 4</span><br><span class="line">numChildren = 0</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/09/Yii2-PHP多进程出现MySQL-server-has-gone-away/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1002,155 +1151,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/01/关于职场/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="轻芒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="轻芒的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/01/关于职场/" itemprop="url">关于职场</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-01T15:25:27+08:00">
-                2016-07-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/感悟/" itemprop="url" rel="index">
-                    <span itemprop="name">感悟</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>善于倾听，尤其是别人的意见甚至是批评，这是提高自己的最佳途径，工作之后给自己提建议的人并不多。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1196,7 +1201,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1218,7 +1223,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
