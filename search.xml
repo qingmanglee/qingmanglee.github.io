@@ -79,7 +79,7 @@
   <entry>
     <title><![CDATA[Golang并发控制之cancel]]></title>
     <url>%2F2017%2F11%2F27%2FGolang%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E4%B9%8Bcancel%2F</url>
-    <content type="text"><![CDATA[对于并行执行的多个任务，假如出现超时的情况，我们需要将任务停止的场景下，我们可以通过close方式或者context.Context两种方式实现。 close方式close方式是比较简单的方式，利用了channel关闭，还能发送数据的特点实现，代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344package mainimport ( "time" "fmt" "runtime" "math/rand")func main() &#123; chanStop := make(chan struct&#123;&#125;) for i := 0; i &lt; 3; i++ &#123; go worker(chanStop, i) &#125; go func() &#123; for range time.Tick(time.Second) &#123; fmt.Println("gotoutine num: ", runtime.NumGoroutine()) &#125; &#125;() select &#123; case &lt;-time.After(time.Second * 5): close(chanStop) &#125; time.Sleep(time.Second * 5)&#125;func worker(chanStop chan struct&#123;&#125;, id int) &#123; for &#123; select &#123; case &lt;-chanStop: fmt.Printf("worker %d cancel!\n", id) return default: // do something time.Sleep(time.Second * time.Duration(rand.Intn(3))) fmt.Println("something done!") &#125; &#125;&#125; context.Context方式利用context.Context包，代码如下： 123456789101112131415161718192021222324252627282930313233343536373839404142434445package mainimport ( "golang.org/x/net/context" "time" "math/rand" "fmt" "runtime")func main() &#123; ctx := context.Background() ctx, cancel := context.WithCancel(ctx) for i := 0; i &lt; 3; i++ &#123; go worker(ctx, i) &#125; go func() &#123; for range time.Tick(time.Second) &#123; fmt.Println("gotoutine num: ", runtime.NumGoroutine()) &#125; &#125;() select &#123; case time.After(time.Second * 5): cancel() &#125; time.Sleep(time.Second * 5)&#125;func worker(ctx context.Context, id int) &#123; for &#123; select &#123; case &lt;-ctx.Done(): fmt.Printf("worker %d cancel!\n", id) return default: // do something time.Sleep(time.Second * time.Duration(rand.Intn(3))) fmt.Println("something done!") &#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[对于并行执行的多个任务，假如出现超时的情况，我们需要将任务停止的场景下，我们可以通过close方式或者context.Context两种方式实现。 close方式close方式是比较简单的方式，利用了channel关闭，还能发送数据的特点实现，代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344package mainimport ( "time" "fmt" "runtime" "math/rand")func main() &#123; chanStop := make(chan struct&#123;&#125;) for i := 0; i &lt; 3; i++ &#123; go worker(chanStop, i) &#125; go func() &#123; for range time.Tick(time.Second) &#123; fmt.Println("gotoutine num: ", runtime.NumGoroutine()) &#125; &#125;() select &#123; case &lt;-time.After(time.Second * 5): close(chanStop) &#125; time.Sleep(time.Second * 5)&#125;func worker(chanStop chan struct&#123;&#125;, id int) &#123; for &#123; select &#123; case &lt;-chanStop: fmt.Printf("worker %d cancel!\n", id) return default: // do something time.Sleep(time.Second * time.Duration(rand.Intn(3))) fmt.Println("something done!") &#125; &#125;&#125; context.Context方式利用context.Context包，代码如下： 1234567891011121314151617181920212223242526272829303132333435363738394041424344package mainimport ( "context" "time" "math/rand" "fmt" "runtime")func main() &#123; ctx, cancel := context.WithCancel(context.Background()) for i := 0; i &lt; 3; i++ &#123; go worker(ctx, i) &#125; go func() &#123; for range time.Tick(time.Second) &#123; fmt.Println("gotoutine num: ", runtime.NumGoroutine()) &#125; &#125;() select &#123; case time.After(time.Second * 5): cancel() &#125; time.Sleep(time.Second * 5)&#125;func worker(ctx context.Context, id int) &#123; for &#123; select &#123; case &lt;-ctx.Done(): fmt.Printf("worker %d cancel!\n", id) return default: // do something time.Sleep(time.Second * time.Duration(rand.Intn(3))) fmt.Println("something done!") &#125; &#125;&#125;]]></content>
       <categories>
         <category>Golang</category>
       </categories>
@@ -140,7 +140,7 @@
   <entry>
     <title><![CDATA[yii2 php多进程出现MySQL server has gone away]]></title>
     <url>%2F2017%2F08%2F09%2FYii2-PHP%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%87%BA%E7%8E%B0MySQL-server-has-gone-away%2F</url>
-    <content type="text"><![CDATA[问题&amp;场景在yii2的command，利用多进程消费数据库中的数据时，总是出现gone away。 分析在mysql的官方文档中其实有专门的章节说明这个问题，原因也是各种各样，详见；其中有一条刚好符合我的场景，大意就是，当fork的子进程都共用相同的mysql连接的时候，会出现该错误，每个子进程单独一个mysql连接即可解决。 You can also encounter this error with applications that fork child processes, all of which try to use the same connection to the MySQL server. This can be avoided by using a separate connection for each child process. 解决在子进程执行之前，先把mysql的连接close即可。 代码123456789101112131415for ($i = 0; $i &lt; $processNum; $i++) &#123; $pid = pcntl_fork(); if(!$pid)&#123; // 子进程处理 Yii::$app-&gt;db-&gt;close();// solve 子进程 MySQL server has gone away $this-&gt;_work($tasks[$i]); exit(0); &#125;&#125;Yii::$app-&gt;db-&gt;close();// solve 主进程 MySQL server has gone away$status = null;while(pcntl_waitpid(0, $status, WUNTRACED) != -1)&#123; pcntl_wexitstatus($status); CommonLog::saveLog('子进程结束'."\n");&#125;]]></content>
+    <content type="text"><![CDATA[问题&amp;场景在yii2的command，利用多进程消费数据库中的数据时，总是出现gone away。 分析在mysql的官方文档中其实有专门的章节说明这个问题，原因也是各种各样，详见；其中有一条刚好符合我的场景，大意就是，当fork的子进程都共用相同的mysql连接的时候，会出现该错误，每个子进程单独一个mysql连接即可解决。 You can also encounter this error with applications that fork child processes, all of which try to use the same connection to the MySQL server. This can be avoided by using a separate connection for each child process. 解决在子进程执行之前，先把mysql的连接close即可。 代码123456789101112131415for ($i = 0; $i &lt; $processNum; $i++) &#123; $pid = pcntl_fork(); if(!$pid)&#123; // 子进程处理 Yii::$app-&gt;db-&gt;close();// solve 子进程 MySQL server has gone away $this-&gt;_work($tasks[$i]); exit(0); &#125;&#125;Yii::$app-&gt;db-&gt;close();// solve 主进程 MySQL server has gone away$status = null;while(pcntl_waitpid(0, $status, WUNTRACED) != -1)&#123; pcntl_wexitstatus($status); Log::saveLog('子进程结束'."\n");&#125;]]></content>
       <categories>
         <category>PHP</category>
       </categories>
@@ -199,14 +199,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[关于]]></title>
-    <url>%2Fabout%2Findex.html</url>
-    <content type="text"><![CDATA[。。。写点啥？。。。。]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[标签]]></title>
     <url>%2Ftags%2Findex.html</url>
     <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[关于]]></title>
+    <url>%2Fabout%2Findex.html</url>
+    <content type="text"><![CDATA[。。。写点啥？。。。。]]></content>
   </entry>
   <entry>
     <title><![CDATA[分类]]></title>
